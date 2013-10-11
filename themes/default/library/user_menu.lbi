@@ -1,0 +1,27 @@
+﻿<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div style="background-image: url(images/category.jpg); height:26px;"><span style=" margin-left: 40px;  font-size:16px; color:white; padding-top:5px; font-weight:bold; line-height:25px;">我的原味生活</span></div>
+<div class="userMenu">
+
+ <li onmouseover="this.style.background='#F96'" onmouseout="this.style.background=''" ><a href="user.php" {if $action eq 'default'}class="curs"{/if}> {$lang.label_welcome}</a> </li>
+
+<li onmouseover="this.style.background='#F96'" onmouseout="this.style.background=''" ><a href="user.php?act=taocan" {if $action eq 'taocan'}class="curs"{/if}> {$lang.label_taocan}</a> </li>
+
+<li onmouseover="this.style.background='#F96'" onmouseout="this.style.background=''" ><a href="user.php?act=order_list"{if $action eq 'order_list'|| $action eq 'order_detail'}class="curs"{/if}> {$lang.label_order}</a> </li>
+
+<li onmouseover="this.style.background='#F96'" onmouseout="this.style.background=''" ><a href="user.php?act=comment_list"{if $action eq 'comment_list'}class="curs"{/if}> {$lang.label_comment}</a> </li>
+
+<li onmouseover="this.style.background='#F96'" onmouseout="this.style.background=''" ><a href="user.php?act=address_list"{if $action eq 'address_list'}class="curs"{/if}> {$lang.label_address}</a> </li>
+
+<!--<li onmouseover="this.style.background='#F96'" onmouseout="this.style.background=''" ><a href="user.php?act=peisong" {if $action eq 'peisong'}class="curs"{/if}> {$lang.label_peisong}</a> </li>-->
+
+<li onmouseover="this.style.background='#F96'" onmouseout="this.style.background=''" ><a href="user.php?act=collection_list"{if $action eq 'collection_list'}class="curs"{/if}> {$lang.label_collection}</a> </li>
+
+<li onmouseover="this.style.background='#F96'" onmouseout="this.style.background=''" ><a href="user.php?act=profile"{if $action eq 'profile'}class="curs"{/if}> {$lang.label_profile}</a> </li>
+
+<li onmouseover="this.style.background='#F96'" onmouseout="this.style.background=''" ><a href="user.php?act=message_list"{if $action eq 'message_list'}class="curs"{/if}> {$lang.label_message}</a> </li>
+
+<li onmouseover="this.style.background='#F96'" onmouseout="this.style.background=''" ><a href="user.php?act=booking_list"{if $action eq 'booking_list'}class="curs"{/if}> {$lang.label_booking}</a> </li>
+
+<!--<a href="user.php?act=group_buy">{$lang.label_group_buy}</a>-->
+
+</div>

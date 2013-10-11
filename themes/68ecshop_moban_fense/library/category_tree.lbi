@@ -1,0 +1,83 @@
+﻿<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!--二次开发设计图片 -->
+<div class="mx-img-menu"><a href="../article.php?id=43"><img src="images/oneminute.gif"alt="原味生活的特点"/></a></div>
+<!--二次开发设计图片 -->
+<div class="mx-img-menu"><a href="brand.php"><img src="images/liangnong.gif"alt="“良心农”"/></a></div>
+<!--二次开发设计图片 -->
+<div class="mx-img-menu"><a href="../article.php?id=45"><img src="images/anquan.gif"alt="消费者监督沙龙"/></a></div>
+<div class="mx-t1"><img src="images/safe.gif" alt="安全高质" /><span>&nbsp;的</span><a href="#">{$goods_category_num}</a><span>个品种</span></div>
+<div class="mod1 mod2 blank" id="historybox">
+	<div class="cagegoryCon clearfix">
+		<div class="left_nav_content mx-menu">
+			<div class="nav_xlm">
+				<div class="fa_xlm"><span>客户帮助？</span></div>
+				<div class="son_xlm">
+					<a href="article.php?id=14" target="_blank" title="购物教程">购物教程</a>
+				</div>
+			</div>
+			<!--{foreach from=get_categories_tree() item=cat name=name}-->
+			<div class="nav_xlm">
+				{if $cat.id eq 16}
+				<div class="fa_xlm"><span>{$cat.name|escape:html}</span></div>
+				{else}
+				<div class="fa_xlm"><span>{$cat.name|escape:html}</span></div> 
+				{/if}   
+			<!--{if $cat.cat_id && $cat.id eq 6}-->   
+				<!--{foreach name=childs from=$cat.cat_id item=child}-->
+				<div class="son_xlm"><a href="{$child.url}" title="{$child.name|escape:html}" >{$child.name|escape:html}</a></div>
+				<!--{/foreach}-->
+			<!--{elseif $cat.cat_id && $cat.id eq 16}-->   
+				<!--{foreach name=childs from=$cat.cat_id item=child}-->
+				<div class="son_xlm"><a href="{$child.url}" title="{$child.name|escape:html}">
+				<!--{if $child.id eq 76}-->
+				<img src="../images/lf.png"/>
+				<!--{/if}-->
+				<span color="#62120b">{$child.name|escape:html}</span></a></div>
+				<!--{/foreach}-->
+			<!--{else}-->
+				<!--{foreach name=childs from=$cat.cat_id item=child}-->
+				<div class="son_xlm"><a href="{$child.url}" title="{$child.name|escape:html}">{$child.name|escape:html}</a></div>
+				<!--{/foreach}-->
+			<!--{/if}-->
+			</div>
+			<!--{/foreach}-->
+				 
+		</div>
+		<div style="margin-bottom:10px; margin-top:10px; text-align:center" align="center" >
+			<a href="../picshow" target="_blank"/><img src="../images/bz.jpg" width="171" height="68" alt="壁纸" title="原味调色板壁纸库"/></a>
+			<a href="../zhaomu" target="_blank"/><img src="../images/zhaomu.gif" width="171" height="85" alt="招募" title="原味生活招募"/></a>
+		</div>
+	</div>
+<div class="blank"></div>
+</div>
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	$('div.mx-menu div.son_xlm>a').each(function(){
+		var t = $(this);
+		if(t.prop('href')==location.href){
+			t.addClass('current');
+			return false;
+		}
+	});
+	$('div.mx-menu .fa_xlm').click(function(){
+		var t = $(this),son=t.parent().find('.son_xlm'),h;
+		if(t.hasClass('closed')){
+			t.removeClass('closed');
+			son.css('display','block').css('height','auto');
+			h=son.height();
+			son.css('height','0px');
+			son.animate({height:h+'px'},400,function(){
+				$(this).css('display','block').css('height','');
+			});
+		}else{
+			t.addClass('closed');
+			son.animate({height:'0px'},200,function(){
+				$(this).css('display','none').css('height','');
+			});
+		}
+	});	
+});
+</script>

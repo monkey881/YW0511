@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="jquery.js" type="text/javascript">
+</script>
+<script>
+	$(document).ready(function(){
+		$('.fa_xlm').click(function(){
+			$(this).parent().find('.son_xlm').toggle();
+		});
+}); 
+</script>
+<style>
+.left_nav_content .nav_xlm{
+	width:170px;
+}
+.left_nav_content ul{
+	margin:0 0;
+}
+.son_xlm{
+	font-size:12px;
+	height:17px;
+	cursor:pointer;
+	color:blue;
+	background-color:#eee;
+	list-style:none;
+	border-bottom:1px dashed #CCC;
+	padding:5px 0 5px 0px;
+}
+.fa_xlm{
+	font-size:14px;
+	cursor:pointer;
+	list-style:none;
+	padding: 5px 0px; font-size: 14px; background-color:white;
+	border-bottom:1px dashed #CCC;
+	padding:5px 0 5px 0px;
+}
+</style>
+</head>
+<body>
+<div class="left_nav_content">
+	<ul class="nav_xlm">
+    	<li class="fa_xlm" onmouseover="this.style.background='#FD7F02'" onmouseout="this.style.background='#ffffff'">父目录       
+        <li class="son_xlm" onmouseover="this.style.background='#FD7F02'" onmouseout="this.style.background='#eeeeee'">目录1</li>
+        <li class="son_xlm" onmouseover="this.style.background='#FD7F02'" onmouseout="this.style.background='#eeeeee'">目录1</li>
+        <li class="son_xlm" onmouseover="this.style.background='#FD7F02'" onmouseout="this.style.background='#eeeeee'">目录1</li>
+        <li class="son_xlm" onmouseover="this.style.background='#FD7F02'" onmouseout="this.style.background='#eeeeee'">目录1</li>
+        <li class="son_xlm" onmouseover="this.style.background='#FD7F02'" onmouseout="this.style.background='#eeeeee'">目录1</li>
+        <li class="son_xlm" onmouseover="this.style.background='#FD7F02'" onmouseout="this.style.background='#eeeeee'">目录1</li>
+    </ul>
+</div>
+
+
+</body>
+</html>

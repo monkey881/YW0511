@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$page_title}</title>
+<!-- TemplateEndEditable -->
+<!-- TemplateBeginEditable name="head" -->
+<!-- TemplateEndEditable -->
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
+<!-- {if $cat_style} -->
+<link href="{$cat_style}" rel="stylesheet" type="text/css" />
+<!-- {/if} -->
+{* 包含脚本文件 *}
+{insert_scripts files='jquery-1.10.2.min.js,json2.js'}
+{insert_scripts files='common.js,compare.js'}
+<script type="text/javascript" src="js/action.js">
+  var count = 0;//全局判断刷新的计数器
+</script>
+<style>
+.ur_here {
+	width:770px;
+}
+.modContent a{ color:#62120b }
+.modContent {color:#62120b }
+</style>
+</head><body class="category">
+<!-- #BeginLibraryItem "/library/maskbuy.lbi" --><!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/page_header2.lbi" --><!-- #EndLibraryItem -->
+<div class="block clearfix">
+  <div id="pageLeft" class="fl"> <!-- TemplateBeginEditable name="左边区域" --> <!-- #BeginLibraryItem "/library/category_tree.lbi" --><!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/top10.lbi" --><!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/history.lbi" --><!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/promotion_info.lbi" --><!-- #EndLibraryItem --> <!-- TemplateEndEditable --> </div>
+  <div id="pageRight" class="fr"> <!-- #BeginLibraryItem "/library/ur_here.lbi" --><!-- #EndLibraryItem --> 
+    <!--{if $brands.1 || $price_grade.1 || $filter_attr_list}-->
+    <h1 style="background:url(images/g_tit.gif) left center no-repeat; height:26px;">
+    <span style="margin-top:7px; display:block; margin-left:18px; color:#333; line-height:30px">{$lang.goods_filter}</span>
+    </h1>
+    <div class="mod1 blank" id="filter" style="border-top:none;">
+      <div class="mod1con"> 
+        <!--{if $brands.1}-->
+        <div class="screeBox"><strong>{$lang.brand}：</strong> 
+          <!--{foreach from=$brands item=brand}--> 
+          <!-- {if $brand.selected} -->
+          <p><!-- {if $brand.brand_name eq '全部'} --><img src="data/brandlogo/all.png" width="50" height="50"  style=" vertical-align: middle;border-radius:4px; margin-left:10px; border:3px solid #F60;" alt="{$brand.brand_name}" title="{$brand.brand_name}"/><!-- {else} --> 
+ <img src="data/brandlogo/{$brand.brand_logo}" width="50" height="50"  style=" vertical-align: middle;border-radius:4px; margin-left:10px; border:3px solid #F60;" alt="{$brand.brand_name}" title="{$brand.brand_name}"/><!-- {/if} --> </p>
+          <!-- {else} -->
+          <a href="{$brand.url}">
+          <!-- {if $brand.brand_name eq '全部'} -->
+          <img src="data/brandlogo/all.png" width="50" height="50"  style=" vertical-align: middle;border-radius:4px;" alt="{$brand.brand_name}" title="{$brand.brand_name}"/><!-- {else} -->
+          <img src="data/brandlogo/{$brand.brand_logo}" width="50" height="50"  style=" vertical-align: middle;border-radius:4px; " alt="{$brand.brand_name}" title="{$brand.brand_name}"/></a>&nbsp;
+          <!-- {/if} --> 
+          <!-- {/if} --> 
+          <!--{/foreach}--> 
+        </div>
+        <!--{/if}--> 
+        <!--{if $price_grade.1}-->
+        <div class="screeBox"> <strong>{$lang.price}：</strong> 
+          <!--{foreach from=$price_grade item=grade}--> 
+          <!-- {if $grade.selected} -->
+          <p>{$grade.price_range}</p>
+          <!-- {else} --> 
+          <a href="{$grade.url}">{$grade.price_range}</a>&nbsp; 
+          <!-- {/if} --> 
+          <!--{/foreach}--> 
+        </div>
+        <!--{/if}--> 
+        <!--{foreach from=$filter_attr_list item=filter_attr}-->
+        <div class="screeBox"> <strong>{$filter_attr.filter_attr_name|escape:html}：</strong> 
+          <!--{foreach from=$filter_attr.attr_list item=attr}--> 
+          <!-- {if $attr.selected} -->
+          <p>{$attr.attr_value}</p>
+          <!-- {else} --> 
+          <a href="{$attr.url}">{$attr.attr_value}</a>&nbsp; 
+          
+          <!-- {/if} --> 
+          <!--{/foreach}--> 
+        </div>
+        <!--{/foreach}--> 
+      </div>
+    </div>
+    <div id="hidden_area" style="top: 159px; left: 434px; z-index:1000; display:none;"> </div>
+    <script type="text/javascript">//divheight("filter");</script> 
+    <!-- {/if} --> 
+    <!-- TemplateBeginEditable name="商品列表上可编辑区域" --> 
+	<!-- TemplateEndEditable -->
+  
+     <!-- #BeginLibraryItem "/library/goods_list.lbi" --><!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/pages.lbi" --><!-- #EndLibraryItem -->
+    <div id="page_hidden" style="visibility:hidden;">{$pager.page_next}</div>
+  </div>
+</div>
+<!-- #BeginLibraryItem "/library/help.lbi" --><!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+<script type="text/javascript">
+$$('.goods_img').hover(
+          function () {
+			  
+              var obj = $$(this).parents('div.goodsbox').find('div.hidden_text');
+			  var text = obj.text();
+              var openObj = $$('#hidden_area');
+			  var offset = $$(this).offset();
+			  var top = offset.top;
+			  var left = offset.left-220;
+			  openObj.html(text);
+              openObj.css('top',top);
+			  openObj.css('left',left);
+              openObj.show();
+            },
+            function () {
+              $$('#hidden_area').hide();
+            }
+       );
+
+
+
+
+
+
+  function isUserAtBottom(){
+    return((($$(document).height()-$$(window).height())-$$(window).scrollTop())<=50)?true:false;
+  }
+$$(window).scroll(loadData);
+function loadData(){
+	if(isUserAtBottom()){
+		if($$(".imgbox").size()<= $$("#pager b").text()){//有可以载入的内容!
+			var url=$$("#page_hidden").text();
+			//alert(url);
+			$.ajax({
+				url:url,
+				success:getResult,
+				type:'GET',
+				dataType:'json'
+			});
+		}
+		
+	}
+}
+function getResult(result){
+	//alert(result);
+}
+
+</script>
+</html>

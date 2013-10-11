@@ -1,0 +1,8 @@
+  
+    <div class="myclz" id="mycl">
+    <ul>
+    <li style="background-color:{$bgcolor}"><a class="title">李家青菜</a><span onclick="listTable.edit(this, 'edit_mygood_num', 2)" title="点击修改内容" >1.5斤</span>
+    <span class="del">×</span>
+    </li>
+    </ul>
+</div>

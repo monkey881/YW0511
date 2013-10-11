@@ -1,0 +1,56 @@
+#popupMask {
+	display:none;
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	z-index:200;
+	background-color:#CCC;
+	-moz-opacity: 0.2;
+	opacity:.70;
+	filter: alpha(opacity=20);
+}
+#popupContainer {
+	position: absolute;
+	z-index: 201;
+	top: 0px;
+	left: 0px;
+	display:none;
+	padding: 0px;
+}
+#popupInner {
+	background-color: #FFFFFF;
+}
+#popupFrame {
+	margin: 0px;
+	width: 100%;
+	height: 100%;
+	position: relative;
+	z-index: 202;
+}
+#popupTitleBar {
+	background-color: #FFBF85;
+	color: #000;
+	font-weight: bold;
+	height: 1.3em;
+	padding: 5px;
+	position: relative;
+	z-index: 203;
+}
+#popupTitle {
+	float:left;
+	font-size: 1.1em;
+}
+#popupControls {
+	float: right;
+	cursor: pointer;
+	cursor: hand;
+}
+#popupControls a span {
+	display: block;
+	height: 15px;
+	width: 110px;
+	text-indent: 20px;
+	background: url('close.gif') no-repeat;
+}

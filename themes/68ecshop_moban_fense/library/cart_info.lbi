@@ -1,0 +1,56 @@
+<style type="text/css">
+#car_good_num {
+	font-weight: bold;
+	color: #F00;
+}
+.cat_ul{background:url(../images/ibuy.png) no-repeat;}
+.cat_ul.on{background:url(../images/ibuy2.png) no-repeat;}
+</style>
+<script>
+function vv(name){
+if(name=='cat_ul on')
+document.getElementById("cat_in").className='cat_ul';
+else if(name=='cat_ul')
+document.getElementById("cat_in").className='cat_ul on';
+}
+function Start(){
+setInterval(function(){vv("cat_ul on");}, 3000); //每3秒调用一次方法
+}
+setTimeout(Start, 1000);//延迟5秒开始周期回调
+</script>
+{ if $action!='ajax_cart'}
+<div id="cat_in" class="cat_ul" onclick="vv(className);">
+
+<div class="clearfix divt">
+<div class="cart_sp"  style=" cursor:pointer;display:block; width:300px; height:32px; line-height:32px;"> 
+  <div style="margin-left:130px"><span id="car_good_num"></span></div>
+</div>
+</div>
+<ul class="cart_box clearfix" id="eycart" onload="this.style.display="none"">
+{/if}
+<!-- {if $goods_list_cart} -->
+{foreach from=$goods_list_cart item=goods name=goods key=key}
+<li {if $key%2 neq 0}class="clearfix nobk"{else} class="clearfix"{/if}>
+<span class="sgood left" style=" float:left; height:60px;">
+<a href="{$goods.url}" ><img src="{$goods.goods_thumb}" alt="{$goods.goods_name}" width="60"></a>&nbsp;&nbsp;&nbsp;</span>
+<div class="left sgoodc" style="height:60px; line-height:60px; float:left"><a class="name" href="{$goods.url}">{$goods.short_name}</a>
+<span>{$goods.goods_jj}</span>
+</div>
+
+<p class="right sgoodt">
+<span>{$goods.goods_price}×{$goods.goods_number}</span><a class="del" href="javascript:" onClick="deleteCartGoods({$goods.rec_id});">[删除]</a></p>
+</li>
+{/foreach}
+
+<!-- {else} -->
+<span class="clearfix ptt">（暂无商品）</span>
+<!-- {/if} -->
+<li class="clearfix zllcart">
+<span class="ie6left">
+<span><a href="flow.php" style=" background:#FD7F02 ; padding:3px 8px; color: #FFF;">去购物车结算>></a></span>
+</span>
+</li>
+{ if $action!='ajax_cart'}
+</ul>
+</div>
+{/if}

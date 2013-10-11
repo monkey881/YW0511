@@ -1,0 +1,35 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- {if $goods_article_list} -->
+<div id="related_d">
+<div class="clearfix">
+<div class="goods_caipu">
+<!-- {foreach from=$goods_article_list item=article} 相关文章 -->
+<a href="{$article.url}" title="{$article.title|escape:html}" >
+<img src="{$article.file_url}" style="height:160px;width:160px"></img>
+<p>{$article.short_title|truncate:15}</p>
+</a>
+<!--{/foreach}-->
+</div>
+</div>
+<style>
+.goods_caipu{
+    padding:20px 10px;
+    width:760px;
+    height:auto;
+    overflow:hidden;
+    text-align:center;
+}
+.goods_caipu a{
+    float:left;
+    color:#f60;
+    display:inline;
+    margin-right:30px;
+}
+</style>
+</div>
+<!-- {else} -->
+<div id="related_d">
+<div class="tips">暂无推荐菜谱</div>
+</div>
+<!-- {/if} -->
+<div class="blank"></div>

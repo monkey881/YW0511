@@ -1,0 +1,483 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="Keywords" content="{$keywords}" />
+        <meta name="Description" content="{$description}" />
+        <!-- TemplateBeginEditable name="doctitle" -->
+        <title>
+            {$page_title}
+        </title>
+        <!-- TemplateEndEditable -->
+        <!-- TemplateBeginEditable name="head" -->
+        <!-- TemplateEndEditable -->
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+        <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="icon" href="animated_favicon.gif" type="image/gif" />
+        <link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
+		{insert_scripts files='jquery-1.10.2.min.js,json2.js,mouse-ani.js'}
+<script type="text/javascript">
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+</script>
+        {* 包含脚本文件 *} {insert_scripts files='common.js,compare.js'}
+        <script type="text/javascript" src="js/action.js">
+        </script>
+        <style>
+            .content{ margin: auto; height: auto; width: 900px; text-align: center;
+            border: 1px solid #666; } a:link{ text-decoration: none; } 
+			.c1 span{
+				display:block;_zoom:1;float:left;margin-left:1px;text-align:center;
+				width:110px;
+            height:40px; font-size:18px; line-height:40px; color: #FFF; text-decoration: none; font-weight:
+            bold; text-align: center;}
+			.c1 a.first span{
+				width:114px;
+				margin-left:0px;
+			}
+			 .c1 span:hover{ color:#0F6; text-decoration:
+            none; } .gh0{ background-color:#376F02;} 
+			.gh1{ background-color: #A3C816; } .gh2{ background-color: #F99;
+            } .gh3{ background-color: #996; } .gh4{ background-color: #F60; } .gh5{
+            background-color: #666; } .gh6{ background-color: #990; } 
+			.c1{
+				text-align:
+				left; color: #FFF; margin-top:5px;overflow:hidden;_zoom:1;
+				text-decoration: none; padding:0px;
+			} 
+			
+			.c2,.c00,.c22,.c222,.cf,.cf1,.cg{
+				color: #FFF; margin: 0px; padding:0px 5px;
+				background-color: #376F02;
+			}
+			.c3,.c300,.chjk3,.cjk3,.cbf3,.ce3,.ccg3{
+				margin:auto;padding:3px;border:3px solid #376F02;
+				text-align:left;overflow:hidden;_zoom:1;
+				position:relative;
+			}
+			.p1{ 
+				font-family:SimSun;font-size: 14px; padding: 0px; line-height: 30px;
+				margin:0px;
+				line-height:24px;
+			} 
+			.p2{
+				font-family:'Microsoft Yahei';font-size: 18px; font-weight: normal; 
+				color:#000;
+			}
+			.p3{
+				color: #376F00; margin: 0px; letter-spacing: 2px; font-size:14px;
+				font-family:'Microsoft YaHei';
+				font-size: 14px;
+				line-height:18px;
+			} 
+			.p3 *{font-family:'Microsoft YaHei';font-size: 14px;}
+			.p4{
+				font-size:12px; line-height: 18px; color: #999;
+			} 
+			.d1{
+				float: left; padding-right:5px; overflow:hidden;_zoom:1;
+				position:relative;
+				width:265px;height:265px;
+			} 
+			.d1 img{
+				width:265px;height:265px;border:none;margin:0px;padding:0px;display:block;_zoom:1;
+				position:absolute;
+				left:0px;
+				top:0px;
+				z-index:1;
+			}
+			.d1 img.logo_main{
+				z-index:2;
+			}
+			.d3 .p1 span.t{
+				vertical-align:middle;
+				display:inline-block;
+				_display:inline;
+				_zoom:1;
+				overflow:hidden;
+				line-height:24px;
+				background-color:#FF3D00;
+				padding:0px 0px 0px 5px;
+				border-radius:3px 0px 0px 3px;
+				color:#fff;
+				margin-right:5px;
+			}
+			.d3 .p1 span.v{
+				vertical-align:middle;
+			}
+			.d2{ 
+				float: left; padding-right:5px;text-align:center;overflow:hidden;_zoom:1;
+			}
+			.d2 img{width:130px;height:130px;border:none;margin:0px;padding:0px;display:block;_zoom:1;}
+			.d2 span{display:block;_zoom:1;overflow:hidden;height:5px;}
+			.d3{
+				float: right;
+				overflow:hidden;
+				_zoom:1;
+				width:358px;
+				padding-right:5px;
+			}
+			hr.df{
+				border:none;
+				border-top: 1px dotted #666;
+				margin:2px 0px;
+			}
+			a.mx-fn-details{
+				position:absolute;
+				right:5px;
+				bottom:0px;
+			}
+			.c00{
+				background-color:#A3C816; 
+			}
+			.c300{
+				border-color:#A3C816;; 
+			}
+			.c22{
+				background-color:#F99;
+			}
+			.chjk3{
+				border-color:#F99;
+			}
+			.c222{ color: #FFF;
+				background-color:#996;
+			}
+			.cjk3{
+				border-color:#996;
+			}
+			.cf{
+				background-color:#F60
+			}
+			.cbf3{
+				border-color:#F60;
+			}
+			.cf1{
+				background-color:#666
+			}
+			.ce3{
+				border-color:#666;
+			}
+			.cg{
+				background-color:#990;
+			}
+			.ccg3{
+				border-color:#990;
+			} 
+        </style>
+    </head>
+    
+    <body onload="MM_preloadImages('iimages/j2.jpg')">
+        <!-- #BeginLibraryItem "/library/page_header.lbi" -->    <!-- #EndLibraryItem -->
+        <!-- #BeginLibraryItem "/library/ur_here.lbi" -->    <!-- #EndLibraryItem -->
+
+        <!--主体内容 start-->
+        <div class="block clearfix">
+			<div id="pageLeft" class="fl">
+			<!-- TemplateBeginEditable name="左边区域" -->
+			  <!-- #BeginLibraryItem "/library/category_tree.lbi" --><!-- #EndLibraryItem -->
+				<!-- #BeginLibraryItem "/library/promotion_info.lbi" --><!-- #EndLibraryItem -->
+				<!-- #BeginLibraryItem "/library/top10.lbi" --><!-- #EndLibraryItem -->
+				<!-- #BeginLibraryItem "/library/history.lbi" --><!-- #EndLibraryItem -->
+			<!-- TemplateEndEditable -->
+			</div>
+			<div id="pageRight" class="fr clearfix" >
+				<!--<div class="goodsTitle blank">
+					{$lang.all_brand}
+				</div>-->
+				<div class="all_brand">
+					<p>
+						<div class="mx-nm-map"><a class="map1 ani_1" href="/brand.php?id=38"></a><a class="map2 ani_1" href="/brand.php?id=21"></a><a class="map3 ani_1" href="/brand.php?id=41" ani_1></a><a class="map4 ani_1" href="/brand.php?id=47"></a><a class="map5 ani_1" href="/brand.php?id=45"></a><a class="map6 ani_1" href="/brand.php?id=49"></a></div>
+					</p>
+					<div class="c1">
+						<a class="first" href="javascript:void(0)">
+							<span class="gh0">所有农户</span>
+						</a>
+						<a href="javascript:void(0)">
+							<span class="gh1">蔬菜农户</span>
+						</a>
+						<a href="javascript:void(0)">
+							<span class="gh2">水果农户</span>
+						</a>
+						<a href="javascript:void(0)">
+							<span class="gh3">大米农户</span>
+						</a>
+						<a href="javascript:void(0)">
+							<span class="gh4">禽蛋农户</span>
+						</a>
+						<a href="javascript:void(0)">
+							<span class="gh5">畜农户</span>
+						</a>
+						<a href="javascript:void(0)">
+							<span class="gh6">其他农户</span>
+						</a>
+					</div>
+					<div class="content_all">
+						<!-- {foreach from=$brand_list name="brand_list_foreach" item=brand_data}-->
+						<div class="content0">
+							<div class="c2">
+								<p class="p1">
+									{$brand_data.toptext}
+								</p>
+							</div>
+						  <div class="c3 ani_brand_item">
+								<div class="d1">
+									<img class="logo_main" src="data/brandlogo/{$brand_data.brand_logo}"/>
+									{if $brand_data.brand_logo2 neq ''}<img src="data/brandlogo/{$brand_data.brand_logo2}"/>{/if}
+								</div>
+								<div class="d2">
+									<img class="img1" src="{$brand_data.image1}"/><span></span><img class="img2" src="{$brand_data.image2}"/>
+								</div>
+								<div class="d3">
+									<p class="p1">{$brand_data.address}<span class="p2">&nbsp;{$brand_data.brand_name}</span></p>
+									<p class="p1"><span class="t">农产品：</span><span class="v">{$brand_data.nongchanpin}</span></p>
+									<hr class="df" />
+									<p class="p3"><span>{$brand_data.sologan}</span></p>
+									<hr class="df" />
+									<p class="p4">{$brand_data.bottomtext}</p>
+								</div>
+								<a class="mx-fn-details" href="brand.php?id={$brand_data.brand_id}" onmouseout="MM_swapImgRestore()"
+									onmouseover="MM_swapImage('Image1','','iimages/j2.jpg',1)">
+									<img src="iimages/j.jpg" alt="" name="Image1" id="Image1" /></a>
+							  
+						   </div>
+						</div>
+					   {if $brand_data.type eq "蔬菜农户"}
+						<div class="content1">
+							<div class="c00">
+								<p class="p1">{$brand_data.toptext}</p>
+							</div>
+							<div class="c300 ani_brand_item"> 
+								<div class="d1">
+									<img class="logo_main" src="data/brandlogo/{$brand_data.brand_logo}"/>
+									{if $brand_data.brand_logo2 neq ''}<img src="data/brandlogo/{$brand_data.brand_logo2}"/>{/if}
+								</div>
+								<div class="d2">
+									<img src="{$brand_data.image1}"/>
+									<span></span>
+									<img src="{$brand_data.image2}"/>
+								</div>
+								<div class="d3">
+									<p class="p1">{$brand_data.address}<span class="p2">&nbsp;{$brand_data.brand_name}</span>
+									</p>
+									<p class="p1">
+										<span class="t">农产品：</span><span class="v">{$brand_data.nongchanpin}</span>
+									</p>
+									<hr class="df" />
+									<p class="p3">
+										<span class="p3">
+											 {$brand_data.sologan}
+										</span>
+									</p>
+									<hr class="df" />
+									<p class="p4">
+										{$brand_data.bottomtext}
+									</p>
+								</div>
+								<a class="mx-fn-details" href="brand.php?id={$brand_data.brand_id}" onmouseout="MM_swapImgRestore()"
+									onmouseover="MM_swapImage('Image1','','iimages/j2.jpg',1)">
+									<img src="iimages/j.jpg" alt="" name="Image1" width="258" height="31"id="Image1" /></a>
+						   </div>
+						</div>
+						{/if}
+						
+						{if $brand_data.type eq "水果农户"}
+						<div class="content2">
+							<div class="c22">
+								<p class="p1">
+								   {$brand_data.toptext}
+								</p>
+							</div>
+							<div class="chjk3 ani_brand_item"> 
+								<div class="d1">
+									<img class="logo_main" src="data/brandlogo/{$brand_data.brand_logo}"/>
+									{if $brand_data.brand_logo2 neq ''}<img src="data/brandlogo/{$brand_data.brand_logo2}"/>{/if}
+								</div>
+								<div class="d2">
+									<img src="{$brand_data.image1}"/>
+									<span></span>
+									<img src="{$brand_data.image2}"/>
+								</div>
+								<p class="p1">{$brand_data.address}<span class="p2">&nbsp;{$brand_data.brand_name}</span></p>
+								<p class="p1"><span class="t">农产品：</span><span class="v">{$brand_data.nongchanpin}</span></p>
+								<hr class="df" />
+								<p class="p3">
+									<span class="p3">{$brand_data.sologan}</span>
+								</p>
+								<hr class="df" />
+								<p class="p4">
+									{$brand_data.bottomtext}
+								</p>
+								<a class="mx-fn-details" href="brand.php?id={$brand_data.brand_id}" onmouseout="MM_swapImgRestore()"
+								onmouseover="MM_swapImage('Image6','','iimages/j2.jpg',1)">
+									<img src="iimages/j.jpg" name="Image6" id="Image6" />
+								</a>
+							</div>
+						</div>
+						{/if} {if $brand_data.type eq "大米农户"}
+						<div class="content3">
+							<div class="c222">
+								<p class="p1">{$brand_data.toptext}</p>
+							</div>
+							<div class="cjk3 ani_brand_item"> 
+								<div class="d1">
+									<img class="logo_main" src="data/brandlogo/{$brand_data.brand_logo}"/>
+									{if $brand_data.brand_logo2 neq ''}<img src="data/brandlogo/{$brand_data.brand_logo2}"/>{/if}
+								</div>
+								<div class="d2">
+									<img src="{$brand_data.image1}"/><span></span><img src="{$brand_data.image2}"/>
+								</div>
+								<p class="p1">{$brand_data.address}<span class="p2">&nbsp;{$brand_data.brand_name}</span></p>
+								<p class="p1"><span class="t">农产品：</span><span class="v">{$brand_data.nongchanpin}</span></p>
+								<hr class="df" />
+								<p class="p3"><span class="p3">{$brand_data.sologan}</span></p>
+								<hr class="df" />
+								<p class="p4">{$brand_data.bottomtext}</p>
+								<a class="mx-fn-details" href="brand.php?id={$brand_data.brand_id}" onmouseout="MM_swapImgRestore()"
+								onmouseover="MM_swapImage('Image6','','iimages/j2.jpg',1)">
+									<img src="iimages/j.jpg" name="Image6" id="Image6" />
+								</a>
+							</div>
+						</div>
+						{/if} {if $brand_data.type eq "禽蛋农户"}
+						<div class="content4">
+							<div class="cf"><p class="p1">{$brand_data.toptext}</p></div>
+							<div class="cbf3 ani_brand_item"> 
+								<div class="d1">
+									<img class="logo_main" src="data/brandlogo/{$brand_data.brand_logo}"/>
+									{if $brand_data.brand_logo2 neq ''}<img src="data/brandlogo/{$brand_data.brand_logo2}"/>{/if}
+								</div>
+								<div class="d2"><img src="{$brand_data.image1}"/><span></span><img src="{$brand_data.image2}"/></div>
+								<p class="p1">
+									{$brand_data.address}<span class="p2">&nbsp;{$brand_data.brand_name}</span>
+								</p>
+								<p class="p1"><span class="t">农产品：</span><span class="v">{$brand_data.nongchanpin}</span></p>
+								<hr class="df" />
+								<p class="p3"><span class="p3">{$brand_data.sologan}</span></p>
+								<hr class="df" />
+								<p class="p4">{$brand_data.bottomtext}</p>
+								<a class="mx-fn-details" href="brand.php?id={$brand_data.brand_id}" onmouseout="MM_swapImgRestore()"
+									onmouseover="MM_swapImage('Image6','','iimages/j2.jpg',1)">
+										<img src="iimages/j.jpg" alt="" name="Image6" width="258" height="31"
+										hspace="5" border="0" align="right" id="Image6" />
+									</a>
+							</div>
+						</div>
+						{/if} {if $brand_data.type eq "畜农户"}
+						<div class="content5">
+							<div class="cf1"><p class="p1">{$brand_data.toptext}</p></div>
+							<div class="ce3 ani_brand_item"> 
+								<div class="d1">
+									<img class="logo_main" src="data/brandlogo/{$brand_data.brand_logo}"/>
+									{if $brand_data.brand_logo2 neq ''}<img src="data/brandlogo/{$brand_data.brand_logo2}"/>{/if}
+								</div>
+								<div class="d2"><img src="{$brand_data.image1}"/><span></span><img src="{$brand_data.image2}"/></div>
+								<p class="p1">{$brand_data.address}<span class="p2">&nbsp;{$brand_data.brand_name}</span></p>
+								<p class="p1"><span class="t">农产品：</span><span class="v">{$brand_data.nongchanpin}</span></p>
+								<hr class="df" />
+								<p class="p3"><span class="p3">{$brand_data.sologan}</span></p>
+								<hr class="df" />
+								<p class="p4">{$brand_data.bottomtext}</p>
+								<a class="mx-fn-details" href="brand.php?id={$brand_data.brand_id}" onmouseout="MM_swapImgRestore()"
+									onmouseover="MM_swapImage('Image6','','iimages/j2.jpg',1)">
+										<img src="iimages/j.jpg" alt="" name="Image6" width="258" height="31"
+										hspace="5" border="0" align="right" id="Image6" />
+								</a>
+							</div>
+						</div>
+						{/if} {if $brand_data.type eq "其他农户"}
+						<div class="content6">
+							<div class="cg"><p class="p1">{$brand_data.toptext}</p></div>
+							<div class="ccg3 ani_brand_item"> 
+								<div class="d1">
+									<img class="logo_main" src="data/brandlogo/{$brand_data.brand_logo}"/>
+									{if $brand_data.brand_logo2 neq ''}<img src="data/brandlogo/{$brand_data.brand_logo2}"/>{/if}
+								</div>
+								<div class="d2"><img src="{$brand_data.image1}"/><span></span><img src="{$brand_data.image2}"/></div>
+								<p class="p1">{$brand_data.address}<span class="p2">&nbsp;{$brand_data.brand_name}</span></p>
+								<p class="p1"><span class="t">农产品：</span><span class="v">{$brand_data.nongchanpin}</span></p>
+								<hr class="df" />
+								<p class="p3"><span class="p3">{$brand_data.sologan}</span></p>
+								<hr class="df" />
+								<p class="p4">{$brand_data.bottomtext}</p>
+								<a class="mx-fn-details" href="brand.php?id={$brand_data.brand_id}" onmouseout="MM_swapImgRestore()"
+									onmouseover="MM_swapImage('Image6','','iimages/j2.jpg',1)">
+										<img src="iimages/j.jpg" alt="" name="Image6" width="258" height="31"
+										hspace="5" border="0" align="right" id="Image6" />
+								</a>
+							</div>
+						</div>
+						{/if}<!-- {/foreach} -->
+					</div>
+				</div>
+				
+			</div>
+		</div>
+        <!--主体内容 end-->
+        <!-- #BeginLibraryItem "/library/help.lbi" -->
+        <!-- #EndLibraryItem -->
+        <!-- #BeginLibraryItem "/library/page_footer.lbi" -->
+        <!-- #EndLibraryItem -->
+    <script>
+            $$(document).ready(function() {
+                $$('.content1, .content2, .content3,.content4,.content5,.content6').hide();
+                $$('.c1 a span').click(function() {
+                    var text = $$(this).text();
+                    switch (text) {
+					case '所有农户':
+                        $$('.content0').show();
+                        $$('.content1, .content2, .content3,.content4,.content5,.content6').hide();
+                        break;
+                    case '蔬菜农户':
+                        $$('.content1').show();
+                        $$('.content0,.content2, .content3,.content4,.content5,.content6').hide();
+                        break;
+                    case '水果农户':
+                        $$('.content2').show();
+                        $$('.content0,.content1, .content3,.content4,.content5,.content6').hide();
+                        break;
+                    case '大米农户':
+                        $$('.content3').show();
+                        $$('.content0, .content2, .content1,.content4,.content5,.content6').hide();
+                        break;
+                    case '禽蛋农户':
+                        $$('.content4').show();
+                        $$('.content0, .content2, .content3,.content1,.content5,.content6').hide();
+                        break;
+                    case '畜农户':
+                        $$('.content5').show();
+                        $$('.content0, .content2, .content3,.content4,.content1,.content6').hide();
+                        break;
+                    case '其他农户':
+                        $$('.content6').show();
+                        $$('.content0, .content2, .content3,.content4,.content5,.content1').hide();
+                        break;
+                    default:
+                        $$('.content0').show();
+                        $$('.content1, .content2, .content3,.content4,.content5,.content6').hide();
+                        break;
+                    }
+                });
+            });
+        </script>
+</body>
+</html>

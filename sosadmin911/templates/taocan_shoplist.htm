@@ -1,0 +1,176 @@
+<!-- $Id: goods_list_taocan.htm 17126 2010-04-23 10:30:26Z liuhui $ -->
+{if $full_page}
+  <style type="text/css">
+ul {
+	margin: 0px;
+	padding: 0px;
+	display: block;
+}
+.goods_list_taocan li a {
+	display: block;
+}
+.goods_list_taocan li .pic {
+	padding: 2px;
+	height: 122px;
+	width: 122px;
+	border: 1px solid #CCC;
+}
+.goods_list_taocan li .title {
+	color: #333;
+	text-decoration: none;
+	line-height: 30px;
+}
+.goods_list_taocan li .info .price {
+	color: #F00;
+	width: 50px;
+	display: block;
+	float: left;
+}
+.goods_list_taocan li .info .kc {
+	display: block;
+	color: #999;
+	float: right;
+	width: 60px;
+	text-align: right;
+}
+.goods_list_taocan li .info {
+	height: 25px;
+}
+.goods_list_taocan li {
+	display: block;
+	float: left;
+	height: 220px;
+	width: 132px;
+	padding: 5px;
+}
+.goods_list_taocan li .select #issle {
+	float: right;
+}
+.goods_list_taocan li .select #num {
+	float: left;
+}
+</style>
+
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+
+<!-- 商品搜索 -->
+{if $act eq 'addshop'}
+{include file="goods_search.htm"}
+{/if}
+
+
+<!-- 商品列表 -->
+<form method="post" action="" name="listForm" onsubmit="return confirmSubmit(this)">
+  <!-- start goods list -->
+  <div class="list-div" id="listDiv">
+{/if}
+<ul class="goods_list_taocan">
+{foreach from=$goods_list item=goods}
+  <li>
+  <a class="pic" href="#"><img width="120" height="120" alt="" src="/{$goods.goods_thumb}" /></a>
+  <a class="title" href="">{$goods.goods_name|escape:html}</a>
+  <div class="info"><span class="price">{$goods.shop_price}</span><span class="kc">{$goods.goods_number}</span></div>
+  <div class="select"><input name="num{$goods.goods_id}" type="text" id="num{$goods.goods_id}" value="{$goods.num}" size="8" />
+  
+  
+  <input name="checkboxes[]" type="checkbox" value="{$goods.goods_id}"/>
+  
+  
+  </div>
+  </li>
+  {foreachelse}
+  {$lang.no_records}
+  {/foreach}
+  </ul>
+<!-- 分页 -->
+<table id="page-table" cellspacing="0">
+  <tr>
+    <td align="right" nowrap="true">
+    {include file="page.htm"}
+    </td>
+  </tr>
+</table>
+
+{if $full_page}
+</div>
+
+<div>
+<input type="hidden" name="id" value="{$id}" />
+全选<input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox"> 
+{if $act neq 'addshop'}
+  <input name="act" type="hidden" value="updata" /> 
+  删除<input name="chkDel" type="checkbox" id="chkDel" value="1"> 
+  <input type="submit" value="更新商品" id="btnSubmit" name="btnSubmit" class="button" />
+  {else}
+   <input name="act" type="hidden" value="saveshop" />
+   <input type="submit" value="添加商品" id="btnSubmit" name="btnSubmit" class="button" />
+   {/if}
+  
+  
+</form>
+
+<script type="text/javascript">
+  listTable.recordCount = {$record_count};
+  listTable.pageCount = {$page_count};
+
+  {foreach from=$filter item=item key=key}
+  listTable.filter.{$key} = '{$item}';
+  {/foreach}
+
+  {literal}
+  onload = function()
+  {
+    startCheckOrder(); // 开始检查订单
+    document.forms['listForm'].reset();
+  }
+
+  /**
+   * @param: bool ext 其他条件：用于转移分类
+   */
+  function confirmSubmit(frm, ext)
+  {
+      if (frm.elements['type'].value == 'trash')
+      {
+          return confirm(batch_trash_confirm);
+      }
+      else if (frm.elements['type'].value == 'not_on_sale')
+      {
+          return confirm(batch_no_on_sale);
+      }
+      else if (frm.elements['type'].value == 'move_to')
+      {
+          ext = (ext == undefined) ? true : ext;
+          return ext && frm.elements['target_cat'].value != 0;
+      }
+      else if (frm.elements['type'].value == '')
+      {
+          return false;
+      }
+      else
+      {
+          return true;
+      }
+  }
+
+  function changeAction()
+  {
+      var frm = document.forms['listForm'];
+
+      // 切换分类列表的显示
+      frm.elements['target_cat'].style.display = frm.elements['type'].value == 'move_to' ? '' : 'none';
+			
+			{if $suppliers_list > 0}
+      frm.elements['suppliers_id'].style.display = frm.elements['type'].value == 'suppliers_move_to' ? '' : 'none';
+			{/if}
+
+      if (!document.getElementById('btnSubmit').disabled &&
+          confirmSubmit(frm, false))
+      {
+          frm.submit();
+      }
+  }
+{/literal}
+</script>
+{include file="pagefooter.htm"}
+{/if}

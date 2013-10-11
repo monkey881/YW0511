@@ -1,0 +1,365 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$page_title}</title>
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
+<link href="/js/submodal/submodal.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/js/json2.js"></script>
+<style>
+a:link{text-decoration: none; color:#333;}
+a:hover{ color:#999;}
+</style>
+{* 包含脚本文件 *}
+{insert_scripts files='common.js,user.js'}
+</head>
+<body>
+<!-- #BeginLibraryItem "/library/page_header2.lbi" --><!-- #EndLibraryItem -->
+<!--当前位置 start-->
+<div class="block box">
+ <div id="ur_here">
+  <!-- #BeginLibraryItem "/library/ur_here.lbi" --><!-- #EndLibraryItem -->
+ </div>
+</div>
+<!--当前位置 end-->
+<div class="blank"></div>
+<div class="block clearfix">
+  <!--left start-->
+  <div class="AreaL">
+    <div class="box">
+     <div class="box_1">
+      <div class="userCenterBox">
+        <!-- #BeginLibraryItem "/library/user_menu.lbi" --><!-- #EndLibraryItem -->
+      </div>
+     </div>
+    </div>
+  </div>
+  <!--left end-->
+  <!--right start-->
+  <div class="AreaR">
+    <div class="box">
+		<div class="box_1">
+		<div class="userCenterBox boxCenterList clearfix" style="_height:1%;">
+     
+      <!--#订单列表界面 start-->
+       <!-- {if $action eq 'taocan'} -->
+		<div class="mx-bar hasb"><span>我的套餐</span></div>
+		<div class="blank"></div>
+		<table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
+			<tr style="text-align:center;">
+				<td bgcolor="#f8f8f8">套餐名称</td>
+				<td bgcolor="#f8f8f8">开始日期</td>
+				<td bgcolor="#f8f8f8">套餐数量</td>
+				<td bgcolor="#f8f8f8">赠送数量</td>
+				<td bgcolor="#f8f8f8">已配送</td>
+				<td bgcolor="#f8f8f8">剩余</td>
+				<td bgcolor="#f8f8f8">状态</td>
+				<td bgcolor="#f8f8f8">操作</td>
+			</tr>
+          <!--{foreach from=$taocans item=item}-->
+          <tr>
+            <td style="text-align:center;vertical-align:middle;background:#ffffff;"><a href="user.php?act=order_detail&order_id={$item.order_id}" class="f6 mx-link1">{$item.taocan_name}</a></td>
+            <td style="text-align:center;vertical-align:middle;background:#f8fdff;">{$item.start_time}</td>
+            <td style="text-align:center;vertical-align:middle;background:#ffffff;">{$item.taocan_weight}</td>
+            <td style="text-align:center;vertical-align:middle;background:#f8fdff;">{if $item.zengsong}<font color="#f40050">{$item.zengsong}</font>{/if}</td>
+            <td style="text-align:center;vertical-align:middle;background:#ffffff;">{$item.song_weight}</td>
+            <td style="text-align:center;vertical-align:middle;background:#f8fdff;"><span style="color:#0054ff;">{$item.y_weight}</span></td>
+            <td style="text-align:center;vertical-align:middle;background:#ffffff;">{$item.status}</td>
+            <td style="text-align:center;vertical-align:middle;background:#f8fdff;"><div id="mx-temp">{$item.handler}</div>
+				<script>
+					var elt = $('#mx-temp');
+					var a1 = elt.contents().filter('a:first');
+					var a2 = elt.contents().filter('a:last');
+					elt.html('');
+					elt.append(a1);
+					elt.append(a2);
+					elt.attr('id','');
+					a1.addClass('mx-btn s1');
+					a1.css('color','#fff');
+					a1.text('设置套餐');
+					a2.addClass('mx-btn s2');
+					a2.css('color','#fff');
+					a2.text('暂停配送');
+				</script>
+			 </td>
+          </tr>
+         
+          <!--{/foreach}-->
+          </table>
+        <div class="blank5"></div>
+       <!-- #BeginLibraryItem "/library/pages.lbi" --><!-- #EndLibraryItem -->
+       <!--{/if}-->
+      <!--#订单列表界面 end-->
+    
+     <!--{if $action eq 'rili'}-->
+      <!--配送日历开始-->
+      <style type="text/css">
+div.mx-rili{
+	border:solid 1px #eee;
+}
+.rili  {
+	border:none;
+	width: 100%;
+	border-collapse:collapse;
+}
+
+.rili select{
+	margin:0px 4px;
+}
+.rili a {
+	display:inline-block;
+	_display:inline;
+	_zoom:1;
+	width:99%;
+	height:60px;
+	line-height:60px;
+	border:solid 1px #fff;
+	font-size:26px;
+}
+.rili tr td {
+	text-align:center;
+	vertical-align:middle;
+	width: 14%;
+	height:60px;
+	font-size:26px;
+	border:solid 1px #ccc;
+}
+.rili tr.top td {
+	height: 30px;
+	vertical-align:middle;
+	border:none;
+}
+.rili tr th {
+	padding: 5px;
+	border-top:solid 1px #eee;
+	background-repeat:repeat-x;
+	background-image:url(/themes/68ecshop_moban_fense/images/rili-bar.png);
+	background-color:#ffacac;
+}
+.rili tr td.psr,td.psr {
+	text-align:center;
+	vertical-align:middle;
+	background-color:#ff6000;
+	background-repeat:no-repeat;
+	background-position:left center;
+	background-image:url(images/mx-ps-1.png);
+	font-weight:bold;
+	font-size:16px;
+	width:106px;
+	height:32px;
+	color:white;
+}
+.rili tr td.psr a{
+	color:#fff;
+}
+.rili tr .f {
+	background-color: #ffacac;
+}
+.rili tr td.songed,td.songed {
+	text-align:center;
+	vertical-align:middle;
+	background-color:#00bb12;
+	background-repeat:no-repeat;
+	background-position:left center;
+	background-image:url(images/mx-ps-3.png);
+	font-weight:bold;
+	font-size:16px;
+	width:106px;
+	height:32px;
+	color:white;
+}
+.rili tr td.songed a{
+	color:#fff;
+}
+.rili tr td.shezhi,td.shezhi {
+	text-align:center;
+	vertical-align:middle;
+	background-color:#009bdb;
+	background-repeat:no-repeat;
+	background-position:left center;
+	background-image:url(images/mx-ps-2.png);
+	font-weight:bold;
+	font-size:16px;
+	width:106px;
+	height:32px;
+	color:#fff;
+}
+.rili tr td.shezhi a{
+	color:#fff;
+}
+.rili .psr a:hover {
+	border:solid 1px #ff6000;
+}
+.rili .songed a:hover {
+	border:solid 1px #00bb12;
+}
+.rili .shezhi a:hover {
+	border:solid 1px #009bdb;
+}
+.rili tr .psr span {
+	font-size: 12px;
+
+}
+.shuoming p{
+	font-size:14px;
+}
+}
+</style>
+<script type="text/javascript" src="/js/submodal/submodalsource.js"></script>
+
+<script type="text/javascript">
+function getTaoCan(date)
+{
+	window.location.href='gettaocan.php?date='+date+'&tid={$taocan.tid}';
+	
+	}
+</script>
+
+<div class="blank"></div>
+ <div class="mx-bar hasb"><span>我的原味配餐系统</span></div>
+ <div class="shuoming" style="padding:10px 0px;">
+	<p class="mx-vm"><span>订餐系统说明：推荐使用</span><img src="images/google.png"/><span>谷歌浏览器</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;　　　　</span><img src="images/360.png"/><span>360浏览器极速版。</span></p>
+	<p class="mx-vm" style="line-height:35px;"><span>　　　　　　　</span><a href="/soft/29.0.1547.76_chrome_installer.exe"><span>点此下载</span><img src="images/google.png"/><span>谷歌浏览器</span></a><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="http://down.360safe.com/cse/360cse_7.3.0.146.exe"><span>点此下载</span><img src="images/360.png"><span>360浏览器极速版</span></a></p>
+	<table class="mx-help-link">
+		<tr>
+			<td><a class="mx-help-link">我怎么点菜呢？<div>请点击系统显示的配送日期进行选菜，此时会弹出配菜界面，可完全根据自己喜好进行选择。</div></a></td>
+			<td><a class="mx-help-link">具体怎么使用的？<div>点击周三或周六的配送日期后，则会弹出具体的选菜界面。原则上，如同套餐说明一样，2人套餐每次4斤、3人套餐每次6斤、4人套餐每次8斤，最小选菜单位0.5斤，加起来和等于相应套餐每次的重量即可。</div></a></td>
+			<td><a class="mx-help-link">系统每次点到一定数量，会跳出<br/>斤数的画面，这是什么意思？<div>此系统可以满足因为家里来客人、或者有特别想吃的而选择提前消费的想法，超出系统默认的斤数后，系统会自动跳出提醒，可以随意增减，自由度较大。</div></a></td>
+		</tr>
+		<tr>
+			<td><a class="mx-help-link">万一要出去出差或者旅游怎么办？<div>因为出差或者旅游等原因，可以可以自由在系统界面暂停和开始。</div></a></td>
+			<td><a class="mx-help-link">点菜有时间限制么？<div>请务必在每次的配送日的前日上午(am):12点前将您的订餐计划确定完毕，超过这个时间后，系统将自动关闭套餐更新配置，您的更改将不再生效。</div></a></td>
+			<td><a class="mx-help-link">有一些想吃的菜吃不到么？<div>因为蔬菜不是工业产品，因此蔬菜上市，一开始都是少量、之后逐步趋稳，因此对于这类品种，会出现"谁先点到谁先吃"供不应求的状态，尽请大家谅解。</div></a></td>
+		</tr>
+	</table>
+ </div>
+ <div class="blank"></div>
+       <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
+          <tr style="text-align:center;">
+			<td bgcolor="#f8f8f8">套餐名称</td>
+			<td bgcolor="#f8f8f8">开始日期</td>
+			<td bgcolor="#f8f8f8">套餐数量</td>
+			<td bgcolor="#f8f8f8">赠送数量</td>
+			<td bgcolor="#f8f8f8">已配送</td>
+			<td bgcolor="#f8f8f8">剩余</td>
+			<td bgcolor="#f8f8f8">状态</td>
+			<td bgcolor="#f8f8f8">操作</td>
+          </tr>
+			<tr>
+            <td style="text-align:center;vertical-align:middle;" bgcolor="#ffffff"><a href="user.php?act=order_detail&order_id={$taocan.order_id}" class="f6 mx-link1">{$taocan.taocan_name}</a></td>
+            <td style="text-align:center;vertical-align:middle;" bgcolor="#f8fdff">{$taocan.start_time}</td>
+            <td style="text-align:center;vertical-align:middle;" bgcolor="#ffffff">{$taocan.taocan_weight}</td>
+            <td style="text-align:center;vertical-align:middle;" bgcolor="#f8fdff">{if $taocan.zengsong}<font color="#f40050">{$taocan.zengsong}</font>{/if}</td>
+            <td style="text-align:center;vertical-align:middle;" bgcolor="#ffffff">{$taocan.song_weight}</td>
+            <td style="text-align:center;vertical-align:middle;" bgcolor="#f8fdff"><span style="color:#0054ff;">{$taocan.y_weight}</span></td>
+            <td style="text-align:center;vertical-align:middle;" bgcolor="#ffffff">{$taocan.status}</td>
+            <td style="text-align:center;vertical-align:middle;" bgcolor="#f8fdff"><div id="mx-temp">{$taocan.handler}</div>
+				<script>
+					var elt = $('#mx-temp');
+					var a2 = elt.contents().filter('a:last');
+					elt.html('');
+					elt.append(a2);
+					elt.attr('id','');
+					a2.addClass('mx-btn s2');
+					a2.css('color','#fff');
+					a2.text('暂停配送');
+				</script>
+			 </td>
+			</tr>
+          </table>
+          <div class="blank"></div>
+<table style="border:none;table-layout:fixed;width:354px;margin-top:20px;">
+  <tr>
+    <td class="psr">配送日</td>
+    <td width="15"></td>
+    <td class="shezhi">已设置</td>
+    <td width="15"></td>
+    <td class="songed">已配送</td>
+    <td width="15"></td>
+
+  </tr>
+</table>
+<div class="mx-rili">
+      {$cal}
+</div>
+     <!-- 配送日历结束-->
+    <!--{/if}-->
+    
+      <!--#订单列表界面 start-->
+       <!-- {if $action eq 'ka'} -->
+		<div class="mx-bar hasb"><span>套餐卡</span></div>
+		<div class="blank"></div>
+		<form action="user.php?act=kasave" method="post"><table width="100%" border="0">
+  <tr>
+    <td width="20%">卡号：</td>
+    <td width="80%"><label for="kahao"></label>
+      <input type="text" name="kahao" id="kahao" /></td>
+  </tr>
+  <tr>
+    <td>密码：</td>
+    <td><label for="password"></label>
+      <input type="text" name="password" id="password" /></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><input type="submit" name="button" id="button" value="提交" /></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table></form>
+
+        <div class="blank5"></div>
+     
+       <!--{/if}-->
+      <!--#订单列表界面 end-->
+    
+    
+      </div>
+     </div>
+    </div>
+  </div>
+  <!--right end-->
+</div>
+<div class="blank"></div>
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>
+<script>
+$(document).ready(function(){
+	function mx_msg(a,x,y){
+		function hide(){
+			a.contents().filter('div').css('display','none');
+			$('html').unbind('mousedown',hide);
+			a=null;
+		}
+		function show(){
+			var div = a.contents().filter('div');
+			div.css('left',x);
+			div.css('top',y);
+			div.css('display','block');
+			div.css('opacity',0);
+			var pos = div.position();
+			var w = div.innerWidth();
+			var cw = $(window).width();
+			if(pos.left+w>cw){
+				div.css('left',cw-w-10);
+			}
+			div.animate({'opacity':1});
+			$('html').mousedown(hide);
+		}
+		show();
+	}
+	$('.mx-help-link').click(function(e){
+		mx_msg($(this),e.pageX,e.pageY);
+	});
+});
+</script>

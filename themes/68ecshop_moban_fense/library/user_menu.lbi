@@ -1,0 +1,27 @@
+﻿<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div class="cagegoryCon clearfix">
+	<div class="mx-user-menu">
+		<script>
+		</script>
+		<div class="mx-l1-link"><a class="mx-l1-link" href="user.php" {if $action eq 'default'}class="curs"{/if}>{$lang.label_welcome}</a></div>
+		<div class="mx-l1">会员信息</div>
+		<div>
+			<li><a href="user.php?act=comment_list"{if $action eq 'comment_list'}class="curs"{/if}> {$lang.label_comment}</a> </li>
+			<!--<li><a href="user.php?act=peisong" {if $action eq 'peisong'}class="curs"{/if}> {$lang.label_peisong}</a> </li>-->
+			<li><a href="user.php?act=collection_list"{if $action eq 'collection_list'}class="curs"{/if}> {$lang.label_collection}</a> </li>
+			<li><a href="user.php?act=profile"{if $action eq 'profile'}class="curs"{/if}> {$lang.label_profile}</a> </li>
+			<li><a href="user.php?act=message_list"{if $action eq 'message_list'}class="curs"{/if}> {$lang.label_message}</a> </li>
+			<li><a href="user.php?act=booking_list"{if $action eq 'booking_list'}class="curs"{/if}> {$lang.label_booking}</a> </li>
+			<li><a href="user.php?act=good_food"{if $action eq 'good_food'}class="curs"{/if}> 分享我的美食</a> </li>
+			<li><a href="user.php?act=vote"{if $action eq 'vote'}class="curs"{/if}>原味调查</a> </li>
+			<!--<a href="user.php?act=group_buy">{$lang.label_group_buy}</a>-->
+		</div>
+		<div class="mx-l1">套餐管理</div>
+		<div id=a2 style="display:block;color:#000;">
+        <li><a href="user.php?act=ka" {if $action eq 'taocan'}class="curs"{/if}>套餐卡</a> </li>
+			<li><a href="user.php?act=taocan" {if $action eq 'taocan'}class="curs"{/if}> {$lang.label_taocan}</a> </li>
+			<li><a href="user.php?act=address_list"{if $action eq 'address_list'}class="curs"{/if}> {$lang.label_address}</a> </li>
+			<li><a href="user.php?act=order_list"{if $action eq 'order_list'|| $action eq 'order_detail'}class="curs"{/if}> {$lang.label_order}</a> </li>
+		</div>
+	</div>
+</div>

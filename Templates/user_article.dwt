@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$page_title}</title>
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
+<style>
+a:link{text-decoration: none; color:#333;}
+a:hover{ color:#999;}
+</style>
+{* 包含脚本文件 *}
+{insert_scripts files='transport.js,common.js,user.js,index.js'}
+</head>
+<body>
+<!-- #BeginLibraryItem "/library/page_header2.lbi" --><!-- #EndLibraryItem -->
+<!--当前位置 start-->
+<div class="block box">
+ <div id="ur_here">
+  <!-- #BeginLibraryItem "/library/ur_here.lbi" --><!-- #EndLibraryItem -->
+ </div>
+</div>
+<!--当前位置 end-->
+<div class="blank"></div>
+<div class="block clearfix">
+  <!--left start-->
+  <div class="AreaL">
+    <div class="box">
+     <div class="box_1">
+      <div class="userCenterBox">
+        <!-- #BeginLibraryItem "/library/user_menu.lbi" --><!-- #EndLibraryItem -->
+      </div>
+     </div>
+    </div>
+  </div>
+  <!--left end-->
+  <!--right start-->
+  <div class="AreaR">
+    <div class="box">
+     <div class="box_1">
+      <div class="userCenterBox boxCenterList clearfix" style="_height:1%; text-decoration:none;">
+        <!--编辑文章开始-->
+        <form  action="article.php" method="post" enctype="multipart/form-data" name="theForm" onsubmit="return validate();">
+    <table width="90%" id="general-table">
+      <tr>
+        <td class="narrow-label">{$lang.title}</td>
+        <td><input type="text" name="title" size ="40" maxlength="60" value="{$article.title|escape}" />{$lang.require_field}</td>
+      </tr>          
+      <!-- {if $article.cat_id >= 0} -->
+      <tr>
+        <td class="narrow-label">{$lang.cat} </td>
+        <td>
+          <select name="article_cat" onchange="catChanged()">
+            <option value="0">{$lang.select_plz}</option>
+            {$cat_select}
+          </select>
+         {$lang.require_field}</td>
+      </tr>
+      <!-- {else} -->
+      <input type="hidden" name="article_cat" value="-1" />
+      <!-- {/if} -->
+      {if $article.cat_id >= 0}
+      <tr>
+        <td class="narrow-label">{$lang.article_type}</td>
+        <td><input type="radio" name="article_type" value="0" {if $article.article_type eq 0}checked{/if}>{$lang.common}
+      <input type="radio" name="article_type" value="1" {if $article.article_type eq 1}checked{/if}>{$lang.top}
+        {$lang.require_field}        </td>
+      </tr>
+      <tr>
+        <td class="narrow-label">{$lang.is_open}</td>
+        <td>
+        <input type="radio" name="is_open" value="1" {if $article.is_open eq 1}checked{/if}> {$lang.isopen}
+      <input type="radio" name="is_open" value="0" {if $article.is_open eq 0}checked{/if}> {$lang.isclose}{$lang.require_field}        </td>
+      </tr>
+      {else}
+      <tr style="display:none">
+      <td colspan="2"><input type="hidden" name="article_type" value="0" /><input type="hidden" name="is_open" value="1" /></td>
+      </tr>
+      {/if}
+      <tr>
+        <td class="narrow-label">{$lang.author}</td>
+        <td><input type="text" name="author" maxlength="60" value="{$article.author|escape}" /></td>
+      </tr>
+      <tr>
+        <td class="narrow-label">{$lang.email}</td>
+        <td><input type="text" name="author_email" maxlength="60" value="{$article.author_email|escape}" /></td>
+      </tr>
+      <tr>
+        <td class="narrow-label">{$lang.keywords}</td>
+        <td><input type="text" name="keywords" maxlength="60" value="{$article.keywords|escape}" /></td>
+      </tr>
+      <tr>
+        <td class="narrow-label">{$lang.lable_description}</td>
+        <td><textarea name="description" id="description" cols="40" rows="5">{$article.description|escape}</textarea></td>
+      </tr>
+      <tr>
+        <td class="narrow-label">{$lang.external_links}</td>
+        <td><input name="link_url" type="text" id="link_url" value="{if $article.link neq ''}{$article.link|escape}{else}http://{/if}" maxlength="60" /></td>
+      </tr>
+      <tr>
+        <td class="narrow-label">{$lang.upload_file}</td>
+        <td><input type="file" name="file">
+          <span class="narrow-label">{$lang.file_url}
+          <input name="file_url" type="text" value="{$article.file_url|escape}" size="30" maxlength="255" />
+          </span></td>
+      </tr>
+    </table>
+
+    <table width="90%" id="detail-table" style="display:none">
+     <tr><td>{$FCKeditor}</td></tr>
+    </table>
+
+    <table width="90%" id="goods-table" style="display:none">
+      <!-- 商品搜索 -->
+      <tr>
+      <td colspan="5">
+        <img src="images/icon_search.gif" width="26" height="22" border="0" alt="SEARCH" />
+        <!-- 分类 -->
+        <select name="cat_id"><option value="0">{$lang.all_category}</caption>{$goods_cat_list}</select>
+        <!-- 品牌 -->
+        <select name="brand_id"><option value="0">{$lang.all_brand}</caption>{html_options options=$brand_list}</select>
+        <!-- 关键字 -->
+        <input type="text" name="keyword" size="30" />
+        <input type="button" value="{$lang.button_search}" onclick="searchGoods()" class="button" />
+      <td>
+      </tr>
+      <!-- 商品列表 -->
+      <tr>
+        <th>{$lang.all_goods}</th>
+        <th>{$lang.handler}</th>
+        <th>{$lang.send_bouns_goods}</th>
+      </tr>
+      <tr>
+        <td width="45%" align="center">
+          <select name="source_select" size="20" style="width:90%" ondblclick="sz.addItem(false, 'add_link_goods', articleId)" multiple="true">
+          </select>
+        </td>
+        <td align="center">
+          <p><input type="button" value="&gt;&gt;" onclick="sz.addItem(true, 'add_link_goods', articleId)" class="button" /></p>
+          <p><input type="button" value="&gt;" onclick="sz.addItem(false, 'add_link_goods', articleId)" class="button" /></p>
+          <p><input type="button" value="&lt;" onclick="sz.dropItem(false, 'drop_link_goods', articleId)" class="button" /></p>
+          <p><input type="button" value="&lt;&lt;" onclick="sz.dropItem(true, 'drop_link_goods', articleId)" class="button" /></p>
+        </td>
+        <td width="45%" align="center">
+          <select name="target_select" multiple="true" size="20" style="width:90%" ondblclick="sz.dropItem(false, 'drop_link_goods', articleId)">
+            {foreach from=$goods_list item=goods}
+            <option value="{$goods.goods_id}">{$goods.goods_name}</option>
+            {/foreach}
+          </select>
+        </td>
+      </tr>
+    </table>
+    <div class="button-div">
+      <input type="hidden" name="act" value="{$form_action}" />
+      <input type="hidden" name="old_title" value="{$article.title}"/>
+      <input type="hidden" name="id" value="{$article.article_id}" />
+      <input type="submit" value="{$lang.button_submit}" class="button"  />
+      <input type="reset" value="{$lang.button_reset}" class="button" />
+    </div>
+    </form>
+        <!--编辑文章结束-->
+   
+      </div>
+     </div>
+    </div>
+  </div>
+  <!--right end-->
+</div>
+<div class="blank"></div>
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+<script type="text/javascript">
+{foreach from=$lang.clips_js item=item key=key}
+var {$key} = "{$item}";
+{/foreach}
+</script>
+</html>

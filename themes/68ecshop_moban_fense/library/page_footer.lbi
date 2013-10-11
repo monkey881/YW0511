@@ -1,0 +1,90 @@
+﻿<?php
+/*友情链接全站调用*/
+if(!function_exists("index_get_links")){
+function index_get_links()
+{
+    $sql = 'SELECT link_logo, link_name, link_url FROM ' . $GLOBALS['ecs']->table('friend_link') . ' ORDER BY show_order';
+    $res = $GLOBALS['db']->getAll($sql);
+    $links['img'] = $links['txt'] = array();
+    foreach ($res AS $row)
+    {
+        if (!empty($row['link_logo']))
+        {
+            $links['img'][] = array('name' => $row['link_name'],
+                                    'url'  => $row['link_url'],
+                                    'logo' => $row['link_logo']);
+        }
+        else
+        {
+            $links['txt'][] = array('name' => $row['link_name'],
+                                    'url'  => $row['link_url']);
+        }
+    }
+    return $links;
+}
+/* links */
+    $links = index_get_links();
+    $this->assign('img_links',       $links['img']);
+    $this->assign('txt_links',       $links['txt']);
+}
+?>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<style type="text/css">
+.links.box.thin_box.full_box {
+	margin: auto;
+	float: none;
+	width: 700px;
+}
+.bd {
+	margin: auto;
+	float: none;
+	width: 990px;
+	text-align: center;
+}
+</style>
+<div class="bd">
+<div>友情链接:</div>
+  <p class="link_list">
+     
+    {if $img_links}
+    {foreach from=$img_links item=link name=img_links} <a href="{$link.url}" rel="external" target="_banket"><img src="{$link.logo}" alt="{$link.name}" width="120" height="50" style="padding:8px; vertical-align:middle"/> </a> {/foreach}
+    {/if}
+    {if $txt_links}
+    {foreach from=$txt_links item=link name=txt_links} <a href="{$link.url}" rel="external">{$link.name}</a> {/foreach}
+    {/if} </p>
+</div>
+<div class="links box thin_box full_box">
+  <div class="hd"><h3>{$lang.links}</h3><div class="extra"></div></div>
+</div>
+
+<div class="block tc" style="">
+  <div class="block tc" style="margin-bottom:20px;">
+   <!-- {if $navigator_list.bottom} -->
+   <!-- {foreach name=nav_bottom_list from=$navigator_list.bottom item=nav} -->
+        
+        <!-- {if !$smarty.foreach.nav_bottom_list.last} -->
+
+        <!-- {/if} -->
+      <!-- {/foreach} --><br />
+  <!-- {/if} -->  
+
+  
+ {$copyright}<br />
+
+      <!-- Skype {foreach from=$skype item=im} -->
+      <!-- {if $im} -->
+      <img src="http://mystatus.skype.com/smallclassic/{$im|escape:url}" alt="Skype" /><a href="skype:{$im|escape:url}?call">{$im}</a>
+      <!-- {/if} -->
+  <!-- {/foreach} --><br />
+  <!-- ICP 证书{if $icp_number} -->
+  {$lang.icp_number}:<a href="http://www.miibeian.gov.cn/" target="_blank">{$icp_number}</a><br />
+ 
+  <!-- 结束ICP 证书{/if} -->
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fc17acd3005b04bcc3bd5712ca120e185' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</div>
+<script src="/js/repairer.js"></script>

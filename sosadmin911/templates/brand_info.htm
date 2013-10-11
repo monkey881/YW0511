@@ -1,0 +1,155 @@
+<!-- $Id: brand_info.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+{include file="pageheader.htm"}
+<div class="main-div">
+<form method="post" action="brand.php" name="theForm" enctype="multipart/form-data" onsubmit="return validate()">
+<table cellspacing="1" cellpadding="3" width="100%">
+  <tr>
+    <td class="label">{$lang.brand_name}</td>
+    <td><input type="text" name="brand_name" maxlength="60" value="{$brand.brand_name}" />{$lang.require_field}</td>
+  </tr>
+  <tr>
+    <td class="label">性别：</td>
+    <td><label for="textfield2"></label>
+      <select name="gend" id="gend">
+      
+      <option value="男" {if $brand.gend eq '男'} selected="selected" {/if}>男</option>
+      
+      <option value="女" {if $brand.gend eq '女'} selected="selected" {/if}>女</option>
+      </select></td>
+  </tr>
+  <tr>
+    <td class="label">农民类别：</td>
+    <td><label for="textfield2"></label>
+      <select name="type" id="type" >
+      <option value="蔬菜农户" {if $brand.type eq '蔬菜农户'} selected="selected" {/if}>蔬菜农户</option>
+      <option value="水果农户" {if $brand.type eq '水果农户'} selected="selected" {/if}>水果农户</option>
+      <option value="大米农户" {if $brand.type eq '大米农户'} selected="selected" {/if}>大米农户</option>
+      <option value="禽蛋农户" {if $brand.type eq '禽蛋农户'} selected="selected" {/if}>禽蛋农户</option>
+      <option value="畜农户" {if $brand.type eq '畜农户'} selected="selected" {/if}>畜农户</option>
+      <option value="其他农户" {if $brand.type eq '其他农户'} selected="selected" {/if}>其他农户</option>
+      </select></td>
+  </tr>
+  <tr>
+    <td class="label">电话：</td>
+    <td><input name="telephone" type="text" id="telephone" value="{$brand.tel}" /></td>
+  </tr>
+  <tr>
+    <td class="label">养殖年龄：</td>
+    <td><input name="yangzhi_age" type="text" id="yangzhi_age" value="{$brand.yangzhi_age}" /></td>
+  </tr>
+  <tr>
+    <td class="label">地址：</td>
+    <td><input name="address" type="text" id="address" value="{$brand.address}" /></td>
+  </tr>
+  <tr>
+    <td class="label">年龄：</td>
+    <td><label for="textfield"></label>
+      <input name="age" type="text" id="age" value="{$brand.age}" /></td>
+  </tr>
+    <tr>
+    <td class="label">个人标语：</td>
+    <td ><label for="textfield"></label>
+      <input name="sologan" type="text" id="sologan" value="{$brand.sologan}"  /></td>
+  </tr>
+  <tr>
+    <td class="label">头部标语：</td>
+    <td><input name="toptext" type="text" id="toptext" value="{$brand.toptext}" /></td>
+  </tr>
+  <tr>
+    <td class="label">农产品：</td>
+    <td><input name="nongchanpin" type="text" id="nongchanpin" value="{$brand.nongchanpin}" /></td>
+  </tr>
+  <tr>
+    <td class="label">图片1：</td>
+    <td><input name="image1" type="text" id="image1" value="{$brand.image1}" /></td>
+  </tr>
+  <tr>
+    <td class="label">图片2：</td>
+    <td><input name="image2" type="text" id="image2" value="{$brand.image2}" /></td>
+  </tr>
+  <tr>
+    <td class="label">底部标语：</td>
+    <td><input name="bottomtext" type="text" id="bottomtext" value="{$brand.bottomtext}" /></td>
+  </tr>
+  <tr>
+    <td class="label"><a href="javascript:showNotice('warn_brandlogo');" title="{$lang.form_notice}">
+      <img src="images/notice.gif" width="16" height="16" border="0" alt="{$lang.form_notice}"></a>{$lang.brand_logo}</td>
+    <td><input type="file" name="brand_logo" id="logo" size="45">{if $brand.brand_logo neq ""}<input type="button" value="{$lang.drop_brand_logo}" onclick="if (confirm('{$lang.confirm_drop_logo}'))location.href='brand.php?act=drop_logo&id={$brand.brand_id}'">
+    {/if}
+      <strong style="color:red;">图片像素300px*300px</strong><br /><span class="notice-span" {if $help_open}style="display:block" {else} style="display:none" {/if} id="warn_brandlogo">
+        {if $brand.brand_logo eq ''}
+        {$lang.up_brandlogo}
+        {else}
+        {$lang.warn_brandlogo}
+        {/if}
+        </span>
+		{if $brand.brand_logo neq ''}<img src="/data/brandlogo/{$brand.brand_logo}" style="width:60px;height:60px;"/>{/if}
+      </td>
+  </tr>
+  <tr>
+    <td class="label"><a href="javascript:showNotice('warn_brandlogo2');" title="{$lang.form_notice}">
+      <img src="images/notice.gif" width="16" height="16" border="0" alt="{$lang.form_notice}"></a>{$lang.brand_logo}</td>
+    <td><input type="file" name="brand_logo2" id="logo2" size="45">{if $brand.brand_logo2 neq ""}<input type="button" value="{$lang.drop_brand_logo}" onclick="if (confirm('{$lang.confirm_drop_logo}'))location.href='brand.php?act=drop_logo2&id={$brand.brand_id}'">
+    {/if}
+      <strong style="color:red;">图片像素300px*300px</strong><br /><span class="notice-span" {if $help_open}style="display:block" {else} style="display:none" {/if} id="warn_brandlogo2">
+        {if $brand.brand_logo2 eq ''}
+        {$lang.up_brandlogo}
+        {else}
+        {$lang.warn_brandlogo}
+        {/if}
+        </span>
+		{if $brand.brand_logo2 neq ''}<img src="/data/brandlogo/{$brand.brand_logo2}" style="width:60px;height:60px;"/>{/if}
+      </td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.brand_desc}</td>
+    <td>{$FCKeditor}</td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.sort_order}</td>
+    <td><input type="text" name="sort_order" maxlength="40" size="15" value="{$brand.sort_order}" /></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.is_show}</td>
+    <td><input type="radio" name="is_show" value="1" {if $brand.is_show eq 1}checked="checked"{/if} /> {$lang.yes}
+        <input type="radio" name="is_show" value="0" {if $brand.is_show eq 0}checked="checked"{/if} /> {$lang.no}
+        ({$lang.visibility_notes})
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><br />
+      <input type="submit" class="button" value="{$lang.button_submit}" />
+      <input type="reset" class="button" value="{$lang.button_reset}" />
+      <input type="hidden" name="act" value="{$form_action}" />
+      <input type="hidden" name="old_brandname" value="{$brand.brand_name}" />
+      <input type="hidden" name="id" value="{$brand.brand_id}" />
+      <input type="hidden" name="old_brandlogo" value="{$brand.brand_logo}">
+    </td>
+  </tr>
+</table>
+</form>
+</div>
+{insert_scripts files="../js/utils.js,validator.js"}
+{literal}
+<script language="JavaScript">
+<!--
+document.forms['theForm'].elements['brand_name'].focus();
+onload = function()
+{
+    // 开始检查订单
+    startCheckOrder();
+}
+/**
+ * 检查表单输入的数据
+ */
+function validate()
+{
+    validator = new Validator("theForm");
+    validator.required("brand_name",  no_brandname);
+    validator.isNumber("sort_order", require_num, true);
+    return validator.passed();
+}
+//-->
+</script>
+{/literal}
+{include file="pagefooter.htm"}

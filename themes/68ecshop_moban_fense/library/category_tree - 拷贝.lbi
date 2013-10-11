@@ -1,0 +1,73 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <!--二次开发设计图片 -->
+  <div style="margin-bottom:10px; margin-top:10px; text-align:center" align="left" >
+  	<a href="../../mypure/timeline/horizontal.php" target="_blank">
+    	商品上市时间轴
+    </a>
+  	<a href="./firsttime.html" target="_top">
+    	<img src="images/oneminute.gif" width="153" height="82" alt="一分钟了解原味生活的特点"  />
+
+	<span style=" color:#EF9C00;  font-size: 18px;">了解原味生活</span>
+	    </a>
+  </div>
+    <!--二次开发设计图片 -->
+  <div style="margin-bottom:10px; margin-top:10px; text-align:center" align="center" >
+  	<a href="#" target="_top">
+    	<img src="images/liangnong.gif" width="153" height="64" alt="原味生活的良心农" />
+   
+	<span style=" color:#DA1E03;  font-size: 18px;">认识原味生活</span> </a>
+  </div>
+    <!--二次开发设计图片 -->
+  <div style="margin-bottom:10px; margin-top:10px; text-align:center" align="center" >
+  	<a href="#" target="_top">
+    	<img src="images/anquan.gif" width="153" height="64" alt="食品安全监督沙龙" />
+   
+	<span style=" color:#009E3A;  font-size: 18px;">监督原味生活</span> </a>
+  </div>
+<div style="margin-top:10px; margin-bottom:5px; text-align:left;" align="center;">
+  	<img src="images/safe.gif" width="57" height="24" alt="安全高质" border="0" style=" vertical-align:middle;" /><span style="color:#FF7F00;font-size: 15px;vertical-align: middle;">的<a href="#" style="color:#8EC31F; font-size:17px;" >{$goods_category_num}</a>个品种</span>
+  </div>
+<div class="mod1 mod2 blank" id="historybox">
+	<span class="lb"></span><span class="rb"></span>
+<div class="cagegoryCon clearfix">
+<!--{foreach from=get_categories_tree() item=cat name=name}-->
+ <!--{if $smarty.foreach.name.last}-->
+ <dl style="border:none;">
+<!--{else}-->
+<dl>
+<!--{/if}-->
+ <dt class="menu_click" style="padding:5px 0px; font-size:14px; " onmouseover="this.style.background='#ffcccc'" onmouseout="this.style.background='#eeeeee'">
+ {if $cat.id eq 16}
+ {$cat.name|escape:html}
+  <!--{if $cat.cat_id}-->
+ <dd class="clearfix">
+ <!--{foreach name=childs from=$cat.cat_id item=child}-->
+     <a href="{$child.url}" title="{$child.name|escape:html}" ><p class="menu_hover" onmouseover="this.style.background='#ffcccc'" onmouseout="this.style.background='#eeeeee'"><img src="../images/folder4.gif" id="lmenu_block_300img" border="0" width="16" height="11">{$child.name|escape:html}</p></a>
+ <!--{/foreach}-->
+ </dd>
+ <!--{/if}-->
+ 	{else}
+ <img src="../images/left_menu{$cat.id}.jpg" width="22" height="22" style="margin-left:1px; margin-right:2px; vertical-align: text-bottom;" />{$cat.name|escape:html}
+ <!--{if $cat.cat_id}-->
+ <dd class="clearfix" style="display:none">
+ <!--{foreach name=childs from=$cat.cat_id item=child}-->
+     <a href="{$child.url}" title="{$child.name|escape:html}" ><p class="menu_hover" onmouseover="this.style.background='#ffcccc'" onmouseout="this.style.background='#eeeeee'"><img src="../images/folder4.gif" id="lmenu_block_300img" border="0" width="16" height="11">{$child.name|escape:html}</p></a>
+ <!--{/foreach}-->
+ </dd>
+ <!--{/if}-->
+ {/if}
+ </dt>
+
+ </dl>
+ <!--{/foreach}-->
+</div>
+<div class="blank"></div>
+</div>
+<script type="text/javascript">
+$$(function(){
+	$$("dt").click(function(){
+	alert('hi');
+	$$(this).next().toggle();
+ });
+});
+</script>

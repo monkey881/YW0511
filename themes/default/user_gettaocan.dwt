@@ -1,0 +1,183 @@
+{if $full_page}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$page_title}</title>
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
+<link href="/js/submodal/submodal.css" rel="stylesheet" type="text/css" />
+
+{* 包含脚本文件 *}
+{insert_scripts files='utils.js,jquery.js,jquery.json-1.3.js,transport2.js,taocan.js'}
+<script type="text/javascript">
+
+var process_request = "{$lang.process_request}";
+function getlist(key)
+{
+	listTable.query='gettaocan';
+	  listTable.filter['brand_id'] = key;
+	  listTable.filter['ps_id'] = "{$ps_id}";
+	  listTable.filter['tid'] = "{$tid}";
+	  listTable.loadList();
+
+}	
+function changeAddress(obj)
+{
+	var addressid=obj.value;
+	listTable.query='changeAddress';
+	listTable.filter['addres_id'] = addressid;
+	listTable.filter['ps_id'] = "{$ps_id}";
+	listTable.changeAddress();
+}
+function addshop(id,num)
+{
+	listTable.query='addshop';
+	  listTable.filter['goods_id'] = id;
+	  listTable.filter['num'] = num;
+	  listTable.filter['ps_id'] = "{$ps_id}";
+	  listTable.filter['tid'] = "{$tid}";
+	  listTable.addshop();
+	
+	}
+	
+$(document).ready(function(){
+$('#listdiv .select').mouseover(function(){
+$(this).stop().animate({"top":"-180px"}, 200);
+})
+$('#listdiv .select').mouseout(function(){
+$(this).stop().animate({"top":"0"}, 200);
+})
+})
+
+</script>
+</head>
+<body>
+<div class="clearfix">
+  <!--right start-->
+    <div class="box">
+      <!--#订单列表界面 start-->
+    <div class="blank"></div>
+<div id="mycl">
+  {/if}
+  <!-- {if $action eq 'addshop' or $action eq 'delshop' || $action eq 'default'} -->
+    <h5><span>我的套餐</span><font color="#FF0000" style="float:left">这次配送已经选择了：{$z_weight}斤</font> <div style="float:left; margin-left:10px;">配送地点：
+    <select name="psAddress" id="psAddress" onchange="changeAddress(this)">
+      <option value="-1">选择配送地点</option>
+      {foreach from=$shipping_area item=area}
+      <option value="{$area.shipping_area_id}" {if $area.shipping_area_id==$order_taocan.peisong_area_id}selected="selected"{/if}>{$area.shipping_area_name}</option>
+      {/foreach}
+    </select>
+    </div></h5>
+   <div class="myclz" > 
+ 
+     
+    
+    <ul>
+     {foreach from=$basket_list item=item}
+    <li style="background-color:{$bgcolor}"><a class="title">{$item.goods_name}</a><span onclick="listTable.edit(this, 'edit_mygood_num', {$item.basket_id})" title="点击修改内容" >{$item.weigth}</span>斤
+    <span class="del" onclick="listTable.delshop({$item.basket_id})">×</span>
+    </li>
+    {foreachelse}
+       你的菜篮里还没有菜，快去挑选吧
+     {/foreach}
+      <div class="blank"></div>
+    </ul>
+    <!--{/if}-->
+    {if $full_page}
+</div>
+</div>
+
+
+<!-- end goods list -->
+  <div class="blank"></div>
+    <h5><span>可选商品</span></h5>
+    <div class="sx">
+    <ul class="brand">
+    {foreach from=$brands item=item}
+    <li onclick=""><img src="/data/brandlogo/{$item.brand_logo}" width="100" height="100"  onclick="getlist({$item.brand_id});"/><span>{$item.brand_name}</span></li>
+     {/foreach}
+    </ul>
+    </div>
+   
+    <div class="goods_list" id="listdiv">
+     {/if}
+      <!-- {if $action eq 'gettaocan' || $action eq 'default'} -->
+      <ul class="goods_list_taocan" >
+        {foreach from=$goods_taocan_list item=goods}
+        <li>
+          <a class="pic" href="#"><img width="120" height="120" alt="" src="/{$goods.goods_thumb}" /></a>
+          <a class="title" href="">{$goods.goods_name|escape:html}</a>
+          <div class="info"><span class="price">{$goods.shop_price}</span><span class="kc">{$goods.weigth }斤</span></div>
+          <div class="select">
+		
+		<span>
+	<dl>
+        <dt onclick="addshop({$goods.goods_id},1);"><a href="#" >{$goods.goods_weight1}斤</a></dt>
+        <dt><a href="#" onclick="addshop({$goods.goods_id},2);">{$goods.goods_weight2}斤</a></dt>
+        <dt><a href="#" onclick="addshop({$goods.goods_id},3);">{$goods.goods_weight3}斤</a></dt>
+        <dt><a href="#" onclick="addshop({$goods.goods_id},4);">{$goods.goods_weight4}斤</a></dt>
+        <dt><a href="#" onclick="addshop({$goods.goods_id},5);">{$goods.goods_weight5}斤</a></dt>
+        <dt><a href="#" onclick="addshop({$goods.goods_id},6);">{$goods.goods_weight6}斤</a></dt>
+        <dt><a href="#" onclick="addshop({$goods.goods_id},8);">{$goods.goods_weight8}斤</a></dt>
+        <dt><a href="#" onclick="addshop({$goods.goods_id},10);">{$goods.goods_weight10}斤</a></dt>
+        
+        </dl>
+		</span>
+	</div>
+        </li>
+        {foreachelse}
+        {$lang.no_records}
+        {/foreach}
+        <div class="blank"></div>
+      </ul>
+   
+<!-- 分页 -->
+
+       <div class="blank5"></div>
+ <!--{/if}-->
+ 
+   <!-- {if $action eq "consignee"} -->
+        <!-- 开始收货人信息填写界面 -->
+        {insert_scripts files='region.js,utils.js'}
+        <script type="text/javascript">
+          region.isAdmin = false;
+          {foreach from=$lang.flow_js item=item key=key}
+          var {$key} = "{$item}";
+          {/foreach}
+
+          {literal}
+          onload = function() {
+            if (!document.all)
+            {
+              document.forms['theForm'].reset();
+            }
+          }
+          {/literal}
+        </script>
+        <!-- 如果有收货地址，循环显示用户的收获地址 -->
+        <!-- {foreach from=$consignee_list item=consignee key=sn} -->
+        <form action="gettaocan.php" method="post" name="theForm" id="theForm" onsubmit="return checkConsignee(this)">
+        <!-- #BeginLibraryItem "/Library/consignee.lbi" --><!-- #EndLibraryItem -->
+        </form>
+        <!-- {/foreach} -->
+        <!-- {/if} -->
+{if $full_page}
+ </div>
+</div>
+      
+
+  </div>
+  
+  <!--right end-->
+</div>
+<div class="blank"></div>
+
+</body>
+</html>
+{/if}

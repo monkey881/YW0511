@@ -1,0 +1,73 @@
+@charset "utf-8";
+/*这个是原味生活月套餐的CSS*/
+
+.content {
+	height: auto;
+	width: 900px;
+	text-align: center;
+	margin: auto;
+	padding: 0px;
+	border: 1px solid #666;
+}
+.k{
+	background-color: #000;
+	margin: auto;
+	width: 880px;
+	font-family: "楷体";
+	font-weight: bold;
+	color: #FFF;
+	text-align: right;
+	height: 35px;
+}
+.p1{
+	line-height: 30px;
+	margin-top: 5px;
+	margin-right: 5px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+}
+
+
+
+
+.rollBox{
+	width:760px;
+	overflow:hidden;
+	margin-top: 0;
+	margin-right: auto;
+	margin-bottom: 0;
+	margin-left: auto;
+}
+.rollBox .Cont{
+	width:740px;
+	overflow:hidden;
+	padding-top:20px;
+	margin-top: 0;
+	margin-right: auto;
+	margin-bottom: 0;
+	margin-left: auto;
+}
+.u{
+	font-size: 20px;
+	color: #FFF;
+	background-color: #272727;
+	width: 760px;
+	height: 30px;
+	padding-top:8px;
+}
+.l{
+	float: left;
+	width: auto;
+}
+.r{
+	width: auto;
+	float: right;
+}
+.rollBox .ScrCont{width:10000000px;}
+.rollBox .Cont .pic{width:130px;float:left;text-align:center;padding-right:20px;}
+*+html .rollBox .Cont .pic{width:130px;float:left;text-align:center;padding-right:30px;}
+.rollBox .Cont .pic img{padding:4px;background:#fff;border:1px solid #ccc;display:block;margin:0 auto;}
+.rollBox .Cont .pic p{line-height:26px;color:#505050;}
+.rollBox .Cont a:link,.rollBox .Cont a:visited{color:#626466; font-weight:bold;text-decoration:none;}
+.rollBox .Cont a:hover{color:#f00;text-decoration:underline;}
+.rollBox #List1,.rollBox #List2{float:left;}

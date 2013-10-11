@@ -1,0 +1,234 @@
+﻿{if $full_page}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$page_title}</title>
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
+{insert_scripts files='jquery-1.10.2.min.js,json2.js'}
+{* 包含脚本文件 *}
+{insert_scripts files='utils.js,common.js,taocan.js'}
+<script type="text/javascript">
+
+var process_request = "{$lang.process_request}";
+ listTable.filter['ps_id'] = "{$ps_id}";
+listTable.filter['tid'] = "{$tid}";
+function getlist(key)
+{
+	listTable.query='gettaocan';
+	  listTable.filter['brand_id'] = key;
+	 
+	  listTable.loadList();
+
+}	
+function changeAddress(obj)
+{
+	var addressid=obj.value;
+	listTable.query='changeAddress';
+	listTable.filter['addres_id'] = addressid;
+	listTable.filter['ps_id'] = "{$ps_id}";
+	listTable.changeAddress();
+}
+function addshop(id,num)
+{
+	listTable.query='addshop';
+	  listTable.filter['goods_id'] = id;
+	  listTable.filter['num'] = num;
+	  listTable.filter['ps_id'] = "{$ps_id}";
+	  listTable.filter['tid'] = "{$tid}";
+	  listTable.addshop();
+	
+	}
+	
+$(document).ready(function(){
+$('#listdiv .select').mouseover(function(){
+$(this).stop().animate({"top":"-180px"}, 200);
+})
+$('#listdiv .select').mouseout(function(){
+$(this).stop().animate({"top":"0"}, 200);
+})
+})
+function checktaocan()
+{
+	if($('#psAddress').val()==-1){
+		alert('请选择配送地点');
+	}
+	else if(parseFloat($('#ps_weight').text())>parseFloat($('#z_weight').text())){
+		alert('你挑选的菜不足最小配送');
+	}
+	else{
+		window.location.href='user.php?act=rili&tid={$tid}';
+	}
+	
+	}
+</script>
+<style type="text/css">
+.ok {
+	height: 35px;
+	width: 90px;
+	top: 40px;
+	right: 30px;
+	position:absolute;
+	z-index:300;
+}
+
+.ok a {
+	display: block;
+	height: 35px;
+	width: 90px;
+	background-color: #F8B97F;
+	border: 1px solid #FFFFFF;
+	line-height: 35px;
+	color: #F00;
+	font-weight: bold;
+	text-decoration: none;
+	text-align: center;
+}
+</style>
+</head>
+<body>
+<!-- #BeginLibraryItem "/library/page_header2.lbi" --><!-- #EndLibraryItem -->
+<!--当前位置 start-->
+<div class="block box">
+ <div id="ur_here">
+  <!-- #BeginLibraryItem "/library/ur_here.lbi" --><!-- #EndLibraryItem -->
+ </div>
+</div>
+<!--当前位置 end-->
+<div class="clearfix block">
+  <!--right start-->
+    <div class="box" style="position:relative">
+      <!--#订单列表界面 start-->
+<div class="mx-cl-info">
+<span>最小配送重量：</span><span id="ps_weight">{$order_taocan.ps_weight}</span><span>斤。</span><span>配送日期：</span><span>{$psdate}</span><span>。配送地点：</span>
+{if $order_taocan.shipping_id==5}
+<input name="psAddress" type="hidden" value="{$address.address_id}" />
+<span>{$address.address} 最佳送货时间：{$address.best_time}</span>
+{else}
+<span><select name="psAddress" id="psAddress" onchange="changeAddress(this)"  {if $yips eq '1'} disabled="disabled"{/if}>
+<option value="-1">选择配送地点</option>
+{foreach from=$shipping_area item=area}
+<option value="{$area.shipping_area_id}" {if $area.shipping_area_id==$selectAddress}selected="selected"{/if}>{$area.shipping_area_name}</option>
+{/foreach}
+</select></span>
+{/if}
+</div>
+<div id="mycl">
+  {/if}
+  <!-- {if $action eq 'addshop' or $action eq 'delshop' || $action eq 'default'} -->
+	<div class="mx-box">
+		<div class="mx-bar"><table class="mx-bar"><tr><td><span>我的套餐。已选择：</span><span id="z_weight" class="mx-num">{$z_weight}</span><span>斤。</span></td><td style="width:600px;"></td><td style="width:150px;text-align:right;"><a class="btn" href="#" onclick="checktaocan()">确定配送</a></td></tr></table></div>
+		<div class="mx-ct">
+		   <div class="myclz"> 
+    <ul>
+     {foreach from=$basket_list item=item}
+    <li style="background-color:{$bgcolor}"><a class="title">{$item.goods_name}</a><span {if $yips neq '1'} onclick="listTable.edit(this, 'edit_mygood_num', {$item.basket_id})" {/if} title="点击修改内容" >{$item.weigth}</span>斤
+    {if $yips neq '1'}<span class="del"  onclick="listTable.delshop({$item.basket_id})">×</span>{/if}
+    </li>
+    {foreachelse}
+       你的菜篮里还没有菜，快去挑选吧
+     {/foreach}
+     <div class="blank"></div>
+    </ul>
+    <!--{/if}-->
+    {if $full_page}
+   
+</div>
+		</div>
+	</div>
+    <div class="clear"></div>
+</div>
+<div class="mx-hr"></div>
+
+<!-- end goods list -->
+{if $yips neq '1'}
+  <div class="clear"></div>
+   
+	<div class="mx-sx">
+		<div class="mx-title"><a onclick="getlist(0);">全部农民。点击农民头像查看他（她）的菜单。</a></div>
+		<div class="mx-list">
+			{foreach from=$brands item=item}
+			<a onclick="getlist({$item.brand_id});"><img src="/data/brandlogo/{$item.brand_logo}"/><span>{$item.brand_name}</span></a>
+			{/foreach}
+		</div>
+	</div>
+   
+    <div class="goods_list mx-goods-list" id="listdiv">
+    {/if}
+     {/if}
+     {if $yips neq '1'}
+      <!-- {if $action eq 'gettaocan' || $action eq 'default'} -->
+      <ul class="goods_list_taocan mx-goods-list-taocan" >
+        {foreach from=$goods_taocan_list item=goods}
+        <li>
+          <a class="pic" href="#"><img alt="" src="/{$goods.goods_thumb}" /></a>
+          <div class="info">
+			  <span>{$goods.weigth }斤</span><a href="">{$goods.goods_name|escape:html}</a>
+			</div>
+			<div class="select">
+				<span>
+					<dl>
+						<dt onclick="addshop({$goods.goods_id},1);"><a href="#" >{$goods.goods_weight1}斤</a></dt>
+						<dt><a href="#" onclick="addshop({$goods.goods_id},2);">{$goods.goods_weight2}斤</a></dt>
+						<dt><a href="#" onclick="addshop({$goods.goods_id},3);">{$goods.goods_weight3}斤</a></dt>
+						<dt><a href="#" onclick="addshop({$goods.goods_id},4);">{$goods.goods_weight4}斤</a></dt>
+						<dt><a href="#" onclick="addshop({$goods.goods_id},5);">{$goods.goods_weight5}斤</a></dt>
+						<dt><a href="#" onclick="addshop({$goods.goods_id},6);">{$goods.goods_weight6}斤</a></dt>
+						<dt><a href="#" onclick="addshop({$goods.goods_id},8);">{$goods.goods_weight8}斤</a></dt>
+						<dt><a href="#" onclick="addshop({$goods.goods_id},10);">{$goods.goods_weight10}斤</a></dt>
+					</dl>
+				</span>
+			</div>
+        </li>
+        {foreachelse}
+        {$lang.no_records}
+        {/foreach}
+        <div class="clear"></div>
+      </ul>
+   
+<!-- 分页 -->
+       <div class="clear"></div>
+ <!--{/if}-->
+ 
+   <!-- {if $action eq "consignee"} -->
+        <!-- 开始收货人信息填写界面 -->
+        {insert_scripts files='region.js,utils.js'}
+        <script type="text/javascript">
+          region.isAdmin = false;
+          {foreach from=$lang.flow_js item=item key=key}
+          var {$key} = "{$item}";
+          {/foreach}
+
+          {literal}
+          onload = function() {
+            if (!document.all)
+            {
+              document.forms['theForm'].reset();
+            }
+          }
+          {/literal}
+        </script>
+        <!-- 如果有收货地址，循环显示用户的收获地址 -->
+        <!-- {foreach from=$consignee_list item=consignee key=sn} -->
+        <form action="gettaocan.php" method="post" name="theForm" id="theForm" onsubmit="return checkConsignee(this)">
+        <!-- #BeginLibraryItem "/Library/consignee.lbi" --><!-- #EndLibraryItem -->
+        </form>
+        <!-- {/foreach} -->
+        <!-- {/if} -->
+        {/if}
+{if $full_page}
+ </div>
+</div>
+  </div>
+  <!--right end-->
+</div>
+<div class="blank"></div>
+</body>
+</html>
+{/if}

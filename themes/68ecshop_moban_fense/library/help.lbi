@@ -1,0 +1,66 @@
+﻿<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.bot {
+	width: 990px;
+	margin: auto;
+}
+</style>
+<div style="clear:both;"> </div>
+<!--{if $helps}-->
+<div class="bot">
+
+	<div class="di">
+    	<ul>
+        	<li class="beg">
+            	<span class="oo">订购电话</span>
+                <table cellspacing="0" border="0" style="border-collapse:collapse;">
+                	<tbody>
+                    	<tr>
+                       
+                        </tr>
+                    	<tr>
+                        	<td valign="top" align="left">周一至周六9：00-18：00</td>
+                        </tr>
+                    	<tr>
+                        	<td valign="top" align="left"><DIV> 18052755505 </DIV>
+                       	    <DIV>QQ客服<a href="http://wpa.qq.com/msgrd?V=1&Uin=422374428&Site=%E5%8E%9F%E5%91%B3%E7%94%9F%E6%B4%BB&Menu=yes" target="_blank" class="top-line"><img src="http://wpa.qq.com/pa?p=1:422374428:4" height="16" border="0" alt="QQ"> 422374428</a> <a href="http://wpa.qq.com/msgrd?V=1&Uin=422374428&Site=%E5%8E%9F%E5%91%B3%E7%94%9F%E6%B4%BB&Menu=yes" target="_blank"> </a></DIV>
+                            <div>
+                            QQ客服 <a href="http://wpa.qq.com/msgrd?V=1&amp;Uin={$im}&amp;Site={$shop_name}&amp;Menu=yes" target="_blank"><img src="http://wpa.qq.com/pa?p=1:{$im}:4" height="16" border="0" alt="QQ" /> <span class="top-line">{$im}</span></a></DIV></td>
+                        </tr>
+                    </tbody>
+                </table>
+          </li>
+            <li class="four">
+            	<ul>
+                	<table id="Helpdetails" cellspacing="0" border="0" >
+                    	<tbody>
+                        	<tr>
+                            <!-- {foreach from=$helps item=help_cat name=name} -->
+                            	<td>
+                                	<li>
+                                    	<span class="oo">{$help_cat.cat_name}</span>
+                                        <table cellspacing="0" border="0" style="border-collapse:collapse;">
+                                        	<tbody>
+                                             <!-- {foreach from=$help_cat.article item=item} -->
+                                            	<tr>
+                                                	<td valign="top">
+                                                    	<p align="center" style="text-align:left"><a href="{$item.url}" target="_blank" title="{$item.title|escape:html}"><span style="text-align:center">{$item.short_title}</span></a></p>
+                                                    </td>
+                                                </tr>
+                                                <!-- {/foreach} -->
+                                            </tbody>
+                                        </table>
+                                    </li>
+                                </td>
+                                <!-- {/foreach} -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--{/if}-->
+
+<div class="blank"></div>

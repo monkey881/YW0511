@@ -1,0 +1,8 @@
+<!-- {foreach from=$pictures item=picture}-->
+ 
+<li>
+<a href="{$picture.img_url}" rel="zoom1" rev="{$picture.img_url}" title="{$picture.img_desc|escape:html}">
+<img src="{if $picture.thumb_url}{$picture.thumb_url}{else}{$picture.img_url}{/if}" alt="{$goods.goods_name}" class="B_blue" /></a>
+</li>
+ 
+<!--{/foreach}-->

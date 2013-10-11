@@ -1,0 +1,78 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+
+<!--迷你购物车-->
+<style type="text/css">
+  /*迷你购物车*/
+  .shopbox { display: none; position: absolute; width: 442px; height: 150px; overflow: hidden; padding-bottom: 10px; border: 3px solid #EF7801; background: #fff; font-size: 12px; z-index: 9999;}
+  .shopbox a { font-size: 12px; text-decoration: none; }
+  .shopbox h2 { height: 25px; margin: 0; padding: 0; background-color:#FC7F01;}
+  .shopbox h2 a { float: right; padding: 5px 10px 0 0;  }
+  .shopbox h2 a img { float: left; padding: 4px 4px 0 0; }
+  .shopbox h2 a span { float: left; color:#FFF; cursor: pointer; }
+
+  .shopbox .spboxcontent {  }
+  .shopbox .spboxcontent .shopboxdetail { overflow: hidden; }
+  .shopbox .spboxcontent .shopboxdetail .spboxleft { float: left; padding: 0 20px; }
+  .shopbox .spboxcontent .shopboxdetail .spboxleft img {  }
+  .shopbox .spboxcontent .shopboxdetail .spboxright { float: left; }
+  .shopbox .spboxcontent .shopboxdetail .spboxright span.spboxtitle { font-size: 14px; font-weight: bold; }
+  .shopbox .spboxcontent .shopboxdetail .spboxright span.blank5 {  }
+  .shopbox .spboxcontent .shopboxdetail .spboxright span.numstyle { font-weight: bold; color: #3778E1; }
+  .shopbox .spboxcontent .shopboxdetail .spboxright span.numstyle2 { font-weight: bold; color: #3778E1; font-size: 14px; }
+  .shopbox .spboxcontent .shopboxdetail .spboxright p { margin: 0; padding: 0; }
+  .shopbox .spboxcontent .shopboxdetail .spboxright p.num { padding: 10px 0; }
+  .shopbox .spboxcontent .shopboxdetail .spboxright p.spbbtndiv {  }
+  .shopbox .spboxcontent .shopboxdetail .spboxright p.spbbtndiv a.jxgwbtn { float: left; margin: 0 10px 0 0; color: #3778E1; font-size: 14px; line-height: 27px; }
+  .shopbox .spboxcontent .shopboxdetail .spboxright p.spbbtndiv a.track {  }
+  .shopbox .spboxcontent .shopboxdetail .spboxright p.spbbtndiv a.track img { float: left; }
+  .shopbox .spboxcontent .shopboxdetail span.blank15 { display: block; line-height: 0; font-size: 0; height: 0; clear: both; }
+  
+  .shopbox .spboxcontent .gmlist { padding: 15px 0 0; _padding-top: 10px; clear: both; }
+  .shopbox .spboxcontent .gmlist h6 { margin: 0 10px; padding: 10px 0 10px 8px; color: #666; font-size: 12px; border-top: 1px dotted #C9C9C9; }
+  .shopbox .spboxcontent .gmlist h6 a {  }
+  .shopbox .spboxcontent .gmlist ul { margin: 0; padding: 0 0 0 7px; list-style: none; overflow: hidden; zoom: 1; }
+  .shopbox .spboxcontent .gmlist ul li { display: inline; float: left; margin: 0 5px 0 6px; width: 76px; }
+  .shopbox .spboxcontent .gmlist ul li .ygmPic {  }
+  .shopbox .spboxcontent .gmlist ul li .ygmPic a {  }
+  .shopbox .spboxcontent .gmlist ul li .ygmPic a img { border: 1px solid #B4B4B4; }
+  .shopbox .spboxcontent .gmlist ul li .ygmName { display: block; padding: 3px 0 0; line-height: 16px; height: 51px; color: #333; overflow: hidden; }
+  .shopbox .spboxcontent .gmlist ul li p { margin: 0; padding: 0; }
+  .shopbox .spboxcontent .gmlist ul li p.ygmPrice span { color: #3778E1; }
+
+	#shoploading { position: absolute; top: 25px; width: 442px; height: 337px; line-height: 337px; text-align: center; background: #fff; }
+	#shoploading img { padding: 140px 0 0; }
+</style>
+<div id="shopbox" class="shopbox">
+    <div class="shopboxcon">
+       
+        <div>
+          <h2><a class="track" name="item-close-cart" href="javascript:void(0)" onclick="document.getElementById('shopbox').style.display='none';"><img src="themes/68ecshop_moban_fense/images/dpbox_06.jpg"><span>关闭</span></a></h2>
+          <br/>
+          <div class="spboxcontent">
+              <div class="shopboxdetail">
+                <div class="spboxleft"><img src="themes/68ecshop_moban_fense/images/DPshopcarIco.gif"></div>
+                <div class="spboxright">
+                  <span class="spboxtitle">该商品已成功放入购物车</span> <span class="blank5"></span>
+                  <p class="num" id="shopcart">购物车共 <span id="shopboxcount" class="numstyle"></span> 件商品 合计：<span id="shopboxprice" class="numstyle2"></span> 元</p>
+                  <span class="blank5"></span>
+                  <hr>
+                  <p class="spbbtndiv">
+                    <a href="javascript:void(0)" name="item-continueshop" class="jxgwbtn track" onclick="document.getElementById('shopbox').style.display='none';">
+                    <!--img src="themes/68ecshop_moban_fense/images/jixugouwu.jpg" class="jixugouwu"-->
+                    <div style=" width:80px; height:25px; color:white; line-height:25px; background-color:#FC7F01; float:left;border: 1px solid #EF7801;">
+                    <font style=" padding-left:10px; color:white; font-size:15px; font-family:'黑体';">继续购物</font></div>
+                    </a>
+                    <a target="_parent" href="flow.php" name="item-Settlement" class="track">
+                    <!--img src="themes/68ecshop_moban_fense/images/qujiesuan.jpg" class="qujiesuan"-->
+                    <div style=" width:70px; height:25px; color:white; line-height:25px; background-color:#FC7F01; float:right;border: 1px solid #EF7801;">
+                    <font style=" padding-left:10px;color:white; font-size:15px; font-family:'黑体';">去结算</font></div></a>
+                  </p>
+                </div>
+              </div>
+              
+          </div>
+        </div>
+    </div>
+</div>
+

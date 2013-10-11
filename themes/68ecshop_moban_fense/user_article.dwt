@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$page_title}</title>
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
+<style>
+a:link{text-decoration: none; color:#333;}
+a:hover{ color:#999;}
+</style>
+{* 包含脚本文件 *}
+{insert_scripts files='jquery-1.10.2.min.js,json2.js'}
+{insert_scripts files='common.js,user.js,index.js'}
+</head>
+<body>
+<!-- #BeginLibraryItem "/library/page_header2.lbi" --><!-- #EndLibraryItem -->
+<!--当前位置 start-->
+<div class="block box">
+ <div id="ur_here">
+  <!-- #BeginLibraryItem "/library/ur_here.lbi" --><!-- #EndLibraryItem -->
+ </div>
+</div>
+<!--当前位置 end-->
+<div class="blank"></div>
+<div class="block clearfix">
+  <!--left start-->
+  <div class="AreaL">
+    <div class="box">
+     <div class="box_1">
+      <div class="userCenterBox">
+        <!-- #BeginLibraryItem "/library/user_menu.lbi" --><!-- #EndLibraryItem -->
+      </div>
+     </div>
+    </div>
+  </div>
+  <!--left end-->
+  <!--right start-->
+  <div class="AreaR">
+    <div class="box">
+     <div class="box_1">
+      <div class="userCenterBox boxCenterList clearfix" style="_height:1%; text-decoration:none;">
+      <!--文章列表开始-->
+       <!-- {if $action eq 'good_food'} -->
+       <div class="mx-bar hasb"><span>我的饭饭&nbsp;</span><a class="mx-btn s2" style="float:right;" href="?act=good_food_add">添加美食</a></div>
+       <div class="blank"></div>
+       <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
+          <tr align="center">
+            <td width="50%" bgcolor="#ffffff">标题</td>
+            <td width="30%" bgcolor="#ffffff">发表时间</td>
+            <td width="20%" bgcolor="#ffffff">操作</td>
+          </tr>
+          <!--{foreach from=$article item=item}-->
+          <tr>
+            
+            <td style="background:url(/images/i01.jpg) no-repeat left center #FFF; padding-left:28px"  bgcolor="#ffffff">{$item.title}</td>
+            <td align="right" bgcolor="#ffffff">{$item.add_time}</td>
+            
+            <td align="center" bgcolor="#ffffff" data-btn-classes="s3">{$item.handler}</td>
+          </tr>
+          <!--{/foreach}-->
+          </table>
+        <div class="blank5"></div>
+       <!-- #BeginLibraryItem "/library/pages.lbi" --><!-- #EndLibraryItem -->
+       <div class="blank5"></div>
+ 
+      
+       <!--{/if}-->
+      <!--文章列表结束-->
+       <!-- {if $action eq 'good_food_add' or $action eq 'good_food_edit'} -->
+        <!--编辑文章开始-->
+        <form  action="user.php" method="post" enctype="multipart/form-data" name="theForm" onsubmit="return validate();">
+    <table width="98%" id="general-table">
+      <tr>
+        <td class="narrow-label">{$lang.title}</td>
+        <td><input type="text" name="title" size ="40" maxlength="60" value="{$article.title|escape}" />{$lang.require_field}</td>
+      </tr>          
+      <!-- {if $article.cat_id >= 0} -->
+      <tr>
+        <td class="narrow-label">{$lang.cat} </td>
+        <td>
+        {if $article.cat_id=='21'}
+        <input name="article_cat" type="hidden" value="21" />
+        明星妈妈
+        {else}
+          <select onchange="catChanged()" name="article_cat">
+            <option value="0">请选择...</option>
+           <option cat_type="1" value="22" {if $article.cat_id=='22'} selected="selected"{/if}>分享美食</option>
+           </select>
+         {$lang.require_field}
+         {/if}
+         </td>
+      </tr>
+      <!-- {else} -->
+      <input type="hidden" name="article_cat" value="-1" />
+      <!-- {/if} -->
+     
+      <tr>
+        <td class="narrow-label">{$lang.author}</td>
+        <td><input type="text" name="author" maxlength="60" value="{$article.author|escape}" /></td>
+      </tr>
+      <tr>
+        <td class="narrow-label">缩略图</td>
+        <td><input type="file" name="file">
+          <span class="narrow-label">{$lang.file_url}
+          <input name="file_url" type="text" value="{$article.file_url|escape}" size="30" maxlength="255" />
+          </span></td>
+      </tr>
+    </table>
+
+    <table width="98%" id="detail-table" >
+     <tr><td>{$FCKeditor}</td></tr>
+    </table>
+
+    
+    <div class="button-div">
+      <input type="hidden" name="act" value="{$form_action}" />
+      <input type="hidden" name="old_title" value="{$article.title}"/>
+      <input type="hidden" name="id" value="{$article.article_id}" />
+      <input type="submit" value="{$lang.button_submit}" class="button"  />
+      <input type="reset" value="{$lang.button_reset}" class="button" />
+    </div>
+    </form>
+        <!--编辑文章结束-->
+  <!-- {/if}-->
+      </div>
+     </div>
+    </div>
+  </div>
+  <!--right end-->
+</div>
+<div class="blank"></div>
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+<script type="text/javascript">
+{foreach from=$lang.clips_js item=item key=key}
+var {$key} = "{$item}";
+{/foreach}
+</script>
+</html>

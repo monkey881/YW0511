@@ -1,0 +1,210 @@
+<!-- $Id: goods_list.htm 17126 2010-04-23 10:30:26Z liuhui $ -->
+<style type="text/css">
+
+.ps_shop_list a:visited, .ps_shop_list a:link {
+ text-decoration: none;
+	background-color: #DEFAFC;
+	line-height: 20px;
+	margin-right: 10px;
+}
+</style>
+
+
+{if $full_page}
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+<div class="form-div">
+ <input name="" type="button" value="最近配送"  onclick="getpeisong('jj')"/> <input name="" type="button" value="未设置用户"  onclick="getusertaocan()"/><input name="" type="button" value="过期配送" onclick="getpeisong('gq')" /> <input name="" type="button" value="已配货" onclick="getpeisong('yph')" /> <input name="" type="button" value="已结束" onclick="getpeisong('yjs')"/> 
+<a href="?act=excel" target="_blank">下载EXCEL</a></div>
+<!-- 商品列表 -->
+<form method="post" action="" name="listForm" onsubmit="return confirmSubmit(this)">
+  <!-- start goods list -->
+  <div class="list-div" id="listDiv">
+{/if}
+{if $act=='wsz'}
+
+<table cellpadding="3" cellspacing="1">
+  <tr>
+    <th width="2%">
+      <input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox" />
+      全选
+    </th>
+    <th width="5%">用户名</th>
+    <th width="55%">套餐名</th>
+    <th width="10%">还有</th>
+     <th width="5%">状态</th>
+    
+    <th width="5%" >操作</th>
+  <tr>
+  {foreach from=$taocan_urer item=user key=sn}
+  <tr>
+    <td><input type="checkbox" name="checkboxes[]" value="{$peisong.ps_id}" />{$user.tid}</td>
+    <td class="first-cell">{$user.user_name|escape:html}</td>
+    <td class="ps_shop_list">
+    {$user.taocan_name}
+    </td>
+    <td align="right">
+{$user.hy_weight}
+   </td>
+   
+    <td align="center">{$user.status}</td>
+   
+    <td align="center">
+   
+    
+    </td>
+  </tr>
+  {foreachelse}
+  <tr><td class="no-records" colspan="10">{$lang.no_records}</td></tr>
+  {/foreach}
+</table>
+<!-- end goods list -->
+
+{else}
+
+<table cellpadding="3" cellspacing="1">
+  <tr>
+    <th width="2%">
+      <input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox" />
+      全选
+    </th>
+    <th width="5%">用户名</th>
+    <th width="55%">配送商品</th>
+    <th width="5%">配送日期</th>
+    <th width="10%">配送地</th>
+     <th width="5%">状态</th>
+    
+    <th width="5%" >操作</th>
+  <tr>
+  {foreach from=$peisong item=peisong key=sn}
+  <tr>
+    <td><input type="checkbox" name="checkboxes[]" value="{$peisong.ps_id}" />{$peisong.ps_id}</td>
+    <td class="first-cell" style="{if $goods.is_promote}color:red;{/if}">{$peisong.user_name|escape:html}</td>
+    <td class="ps_shop_list">
+     {foreach from=$peisong_shop_list.$sn item=shop}
+     <a href="../goods.php?id={$shop.goods_id}" target="_blank" >{$shop.goods_name} {$shop.weight}斤</a>
+     {/foreach}
+    
+    </td>
+    <td align="right">
+{$peisong.ps_time}
+   </td>
+    <td align="center">{$peisong.address}</td>
+    <td align="center">{$peisong.status}</td>
+   
+    <td align="center">
+   
+    
+    </td>
+  </tr>
+  {foreachelse}
+  <tr><td class="no-records" colspan="10">{$lang.no_records}</td></tr>
+  {/foreach}
+</table>
+<!-- end goods list -->
+{/if}
+<!-- 分页 -->
+<table id="page-table" cellspacing="0">
+  <tr>
+    <td align="right" nowrap="true">
+    {include file="page.htm"}
+    </td>
+  </tr>
+</table>
+
+{if $full_page}
+</div>
+
+<div>
+ <input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox" />
+      全选  <input name="" type="button" value="最近配送设为已配货"  onclick="setStatus('ph')"/> <input name="" type="button" value="已配送设为已发货"  onclick="setStatus('fh')"/>    <input name="" type="button" value="过期配送设为已配货"  onclick="setStatus('gqph')"/> <input name="" type="button" value="过期配送设为已发货"  onclick="setStatus('gqfh')"/>
+</div>
+</form>
+
+<script type="text/javascript">
+  listTable.recordCount = {$record_count};
+  listTable.pageCount = {$page_count};
+  function getpeisong(psDate){
+	  listTable.query='query';
+	  listTable.filter.psDate=psDate;
+	  listTable.loadList();
+  }
+  function getexcel(){
+	   listTable.filter.psDate='jj';
+	   listTable.query='excel';
+	   listTable.filter.page_size = '200';
+	  listTable.loadList();
+	  }
+function getusertaocan(){
+	   listTable.query='wsz';
+	   listTable.filter.psDate='jj';
+	   listTable.filter.page_size = '200';
+	  listTable.loadList();
+	  }
+	  
+function setStatus(status){
+	   listTable.query='setStatus';
+	   listTable.filter.status=status;
+	   listTable.filter.page_size = '200';
+	  listTable.loadList();
+	  }
+  {foreach from=$filter item=item key=key}
+  listTable.filter.{$key} = '{$item}';
+  {/foreach}
+
+  {literal}
+  onload = function()
+  {
+    startCheckOrder(); // 开始检查订单
+    document.forms['listForm'].reset();
+  }
+
+  /**
+   * @param: bool ext 其他条件：用于转移分类
+   */
+  function confirmSubmit(frm, ext)
+  {
+      if (frm.elements['type'].value == 'trash')
+      {
+          return confirm(batch_trash_confirm);
+      }
+      else if (frm.elements['type'].value == 'not_on_sale')
+      {
+          return confirm(batch_no_on_sale);
+      }
+      else if (frm.elements['type'].value == 'move_to')
+      {
+          ext = (ext == undefined) ? true : ext;
+          return ext && frm.elements['target_cat'].value != 0;
+      }
+      else if (frm.elements['type'].value == '')
+      {
+          return false;
+      }
+      else
+      {
+          return true;
+      }
+  }
+
+  function changeAction()
+  {
+      var frm = document.forms['listForm'];
+
+      // 切换分类列表的显示
+      frm.elements['target_cat'].style.display = frm.elements['type'].value == 'move_to' ? '' : 'none';
+			
+			{if $suppliers_list > 0}
+      frm.elements['suppliers_id'].style.display = frm.elements['type'].value == 'suppliers_move_to' ? '' : 'none';
+			{/if}
+
+      if (!document.getElementById('btnSubmit').disabled &&
+          confirmSubmit(frm, false))
+      {
+          frm.submit();
+      }
+  }
+{/literal}
+</script>
+{include file="pagefooter.htm"}
+{/if}

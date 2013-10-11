@@ -1,0 +1,352 @@
+﻿<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript">
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+</script>
+
+<div class="head">
+	<div class="in">
+		<div class="left">{* ECSHOP 提醒您：根据用户id来调用member_info.lbi显示不同的界面  *}{insert name='member_info'}</div>
+		<div class="right">    
+			<a id="showtext" onClick="showdiv('contentid','showtext')" href="#">在线客服</a>
+			<a class="btn-sina-weibo" href="http://weibo.com/yw0511" target="_blank">新浪微博</a>
+			<a id="want-help">我要帮助</a>
+		</div>
+	</div>
+</div> 
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function showdiv(targetid,objN){
+   
+      var target=document.getElementById(targetid);
+      var clicktext=document.getElementById(objN)
+
+            if (target.style.display=="block"){
+                target.style.display="none";
+                clicktext.innerText="在线客服";
+            } else {
+                target.style.display="block";
+                clicktext.innerText='在线客服';
+            }
+   
+}
+-->
+</script>
+<div style="display:none; height:2px; text-align:right; margin-right:30px; width:150px;" id="contentid" class="none">
+<!--<iframe src="/welive/online.php" width="150" style=" right:50px; width:150px;"></iframe>-->
+<style>
+	div {margin:0 auto; padding:0;}
+	ul,ol,li,img {margin:0; padding:0; border:none; list-style-type:none;}
+	a {color:#292929;text-decoration:none;cursor:pointer;}
+	a:hover {color:#292929;text-decoration:none;}
+	.usergroup {padding:0;height:22px;line-height:22px;background:#E1E1E1;color:#1E8FBB;text-indent:23px;overflow:hidden; text-align:center;}
+	.description {float:left;padding:3px 7px 0 7px;width:121px;overflow:hidden;line-height:18px;color:#9D5946;}
+	.user {margin:0 0 0 7px;padding:2px 0 6px 0;width:128px;white-space:nowrap;overflow:hidden; text-align:center;}
+	.user li {line-height:200%; text-align:center;}
+</style>
+<div class="usergroup">原味生活客服中心</div>
+		
+		<ul class="user">
+						<li><a href="http://wpa.qq.com/msgrd?V=1&amp;Uin=422374428&amp;Site=WeLive&amp;Menu=yes" target="_blank" title="与 '原味生活No.1' 对话"><img src="http://wpa.qq.com/pa?p=1:422374428:4" height="16" alt="QQ" align="absmiddle">原味生活No.1</a></li>
+                        <li><a href="http://wpa.qq.com/msgrd?V=1&amp;Uin=2263035878&amp;Site=WeLive&amp;Menu=yes" target="_blank" title="与 '原味生活No.2' 对话"><img src="http://wpa.qq.com/pa?p=1:2263035878:4" height="16" alt="QQ" align="absmiddle">原味生活No.2</a></li>
+        </ul>
+</body>
+</div> 
+<script language="javascript"> 
+<!--
+function killerrors() { 
+return true; 
+} 
+window.onerror = killerrors; 
+//-->
+</script>
+{insert_scripts files='utils.js'}
+<script type="text/javascript">
+var process_request = "{$lang.process_request}";
+var btn_buy = "{$lang.btn_buy}";
+var is_cancel = "{$lang.is_cancel}";
+var select_spe = "{$lang.select_spe}";
+
+</script>
+<style type="text/css">
+.top-line:hover{
+	color:red;
+}
+.head{
+	height:30px;
+	text-align:center;
+	background-image:url(../images/head.jpg);
+	padding-top:4px;
+	
+	
+}
+ .autosuggest{
+     position:relative;
+ }
+ #suggestions{
+     text-align:center;
+     top:30px;
+     left:57px;
+     position:absolute;
+     list-style:none;
+     margin:0;
+     padding:0;
+     width:125px;
+     display:none;
+     background-color:#FFBF85;
+     z-index:10000;
+ }
+ #suggestions li{
+     line-height:20px;
+     height:20px;
+     cursor:pointer;
+     border-right:1px solid #FE7F01;
+     border-bottom:1px solid #FE7F01;
+     border-left:1px solid #FE7F01;
+
+ }
+ .active{
+     background-color:#FD7F02;
+     color:#fff;
+ }
+ #error{
+     font-weight:bold;
+     color:#ff0000;
+ }
+ #loader{
+     position:absolute;
+     top:11px;
+     right:55px;
+     display:none;
+ }
+ 
+
+
+</style>
+
+  <style type="text/css">
+<!--
+.keisai-text { font-size: 12px;
+margin-bottom: 3px;
+color: #333333;
+border-bottom: dashed 1px;
+padding-bottom:2px;
+}
+.special { font-size: 12px;
+margin:3px 0px 3px 0px;
+padding:2px;
+border: double #d4aa03;
+background: #feefb3;
+margin-bottom:7px;
+}
+.a_hover:hover{
+    color:#D15A02;
+}
+.hotsearch:hover{
+    color:#000;
+}
+.s_btn{
+    color:#fff;
+    cursor:pointer;
+}
+.s_btn:hover{
+    color:#D15A02;
+    border-color:#D15A02;
+}
+-->
+.top_navi{
+    margin:0 auto;
+    width:990px;
+}
+.top_left{
+    float:left;
+    display:inline;
+}
+.top_middle{
+    text-align:center;
+    margin:0 20px;
+    float:left;
+    display:inline;
+}
+.top_right{
+    text-align:right;
+    float:right;
+    display:inline;
+}
+.huanyhuiyuan{
+	font-size:14px;
+	color:#F60;
+	font-weight:bold;
+}
+.huanyhuiyuan:hover{
+	color:#093;
+	font-weight: bold;
+}
+</style>
+<div class="top_navi">
+    <div class="top_left">
+        <a href="../index.php"><img src="../images/logo.jpg" width="230" height="86" alt="原味生活"></a>
+    </div>
+  <div class="top_middle">
+      <h2>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <span style="font-size: 18px; color: #000; font-family: '楷体'; font-weight:bold;" >&nbsp;&nbsp;原味生活是一个镇江市内&quot;连婴儿和妈妈都可以吃得放心&quot;的幸福超市</span>
+      </h2>
+</div>
+    <div class="top_right"></div>
+    <div style="clear:both;"></div>
+</div>
+
+<div class="search_div">
+  <div class="block" style="height:38px; line-height:38px; background:#FFBF85; width:990px;">
+<div id="search"  class="clearfix" style="float:left; margin-left:26px; display:inline;">
+    <div class="autosuggest">
+  <form id="searchForm" name="searchForm" method="get" action="search.php" onSubmit="return checkSearchForm()" style="_position:relative; top:5px;">
+   <select name="search_type" class="search_type">
+        <option {if $display_type neq '0' or $display_type neq '1'} selected {/if}>商品</option>
+        <option {if $display_type eq '0'} selected {/if}>农户</option>
+        <option {if $display_type eq '1'} selected {/if}>菜谱</option>
+    </select>
+ <input name="keywords" type="text" class="keypaz" id="keyword" value="{$search_keywords|escape}"/>  
+<ul id="suggestions">
+  
+</ul>
+<img src="../images/loading.gif" alt="loading" title="loading"  id="loader"/>
+<span id="error"></span>
+   <input name="imageField" type="submit" value="搜索" class="s_btn"/>
+   </form>
+   </div>
+</div>
+<div class="hotword">
+   <script type="text/javascript">
+   
+   
+     $$(document).ready(function(){
+        
+  var xhr;
+    $$('#keyword').keydown(navigateList);
+  $$('#keyword').keyup(getSuggestions);
+
+  $(document).delegate('#suggestions>li', 'mouseover mouseout click', listHover);
+  
+  function getSuggestions(event){
+      $$('#error').hide();
+     var value=jQuery.trim($$(this).val());
+     var type = $$('.search_type').val();
+     if(value==''||event.which==27){
+      $$('#suggestions').empty().hide();
+      $$('#loader').hide();
+    }
+    if((event.which>=65 && event.which<=90)||(event.which>=48&&event.which<=57)||(event.which>=96&&event.which<=105)||event.which==8 ||event.which==46||event.which==32 ){
+      $$('#loader').show();
+      if(xhr) xhr.abort();
+      if(value.length>=1){
+         xhr=$$.get("suggestions.php",{input:value,type:type},showSuggestions,"text");
+        }else{
+          $$('#loader').hide();
+        }
+    }
+ }
+ 
+ function showSuggestions(data){
+     if(data==''){
+     $$('#error').html('未检索到数据').show();
+     $$('#suggestions').empty().hide();
+   }else{
+     $$('#suggestions').html(data).show();
+   }
+   $$('#loader').hide();
+             
+       }
+ function navigateList(event){
+  switch(event.which){
+  case 38://up arrow
+  if($$('#suggestions>li.active').length>0){
+    $$('#suggestions>li.active').removeClass('active').prev().addClass('active');
+  }else{
+    $$('#suggestions>li:last').addClass('active');
+  }
+  break;
+  
+  case 40://down arrow
+  if($$('#suggestions>li.active').length>0){
+    $$('#suggestions>li.active').removeClass('active').next().addClass('active');
+  }else{
+    $$('#suggestions>li:first').addClass('active');
+  }
+  break;
+  
+  case 13://enter
+  $$('#keyword').val($$('#suggestions>li.active').text());
+  $$('#suggestions').empty().hide();
+  break;
+  }
+ }
+ function listHover(event){
+   if(event.type=='mouseover'){
+     $$('#suggestions>li.active').removeClass('active');
+   }
+   $$(this).toggleClass('active');
+   if(event.type=='click'){
+     $$('#keyword').val($$(this).html());
+     searchForm.submit();
+     $$(this).parent().empty().hide();
+     $$('#keyword').focus();
+   }
+   
+ }
+ 
+ 
+  
+ });
+   
+   
+
+    {literal}
+    <!--
+    function checkSearchForm()
+    {
+        if(document.getElementById('keyword').value)
+        {
+            return true;
+        }
+        else
+        {
+            alert("{$lang.no_keywords}");
+            return false;
+        }
+    }
+    -->
+
+    </script>
+    {if $searchkeywords}
+    <span style="color:#F00">热门搜索：</span>
+   {foreach from=$searchkeywords item=val}
+   <a href="search.php?keywords={$val|escape:url}"  class="hotsearch">{$val}</a>
+   {/foreach}
+   {/if}
+   
+</div>
+  </div>
+</div>
+{insert_scripts files='yanshi.js'}

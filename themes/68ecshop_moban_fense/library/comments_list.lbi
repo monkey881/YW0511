@@ -1,0 +1,226 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div class="clearfix">
+
+<!-- {if $comments} -->
+ <!-- {foreach from=$comments item=comment} -->
+ <div class="commentsTit">
+  <!-- {if $comment.username} -->
+    <b class="username">{$comment.username|escape:html}：</b>
+    <!-- {else} -->
+    <b class="username">{$lang.anonymous}：</b>
+    <!-- {/if} -->
+  给出 <img src="../images/stars{$comment.rank}.gif" alt="{$comment.comment_rank}" /> 评分
+  <span>( {$comment.add_time} )</span>
+ </div>
+ <div class="commentsContent word">
+  {$comment.content}
+    <!-- {if $comment.re_content} -->
+    <div class="re_content">
+     <b class="f1">{$lang.admin_username}</b><br />
+     {$comment.re_content}
+    </div>
+    <!-- {/if} -->
+ </div>
+ <!-- {/foreach} -->
+<!--{else}-->
+ <div class="tips">{$lang.no_comments}</div>
+<!--{/if}-->
+
+<!--翻页 start-->
+ <!-- {if $comments} -->
+    <div id="pager" class="tr" style="margin-right:10px;">
+        {$lang.pager_1}{$pager.record_count}{$lang.pager_2}{$lang.pager_3}{$pager.page_count}{$lang.pager_4} <a href="{$pager.page_first}">{$lang.page_first}</a> <a href="{$pager.page_prev}">{$lang.page_prev}</a> <a href="{$pager.page_next}">{$lang.page_next}</a> <a href="{$pager.page_last}">{$lang.page_last}</a>
+    </div>
+    <!-- {/if} -->
+<!--翻页 END-->
+
+<!--评论表单 start-->
+<div class="Goodpromotion blank">
+      <form action="javascript:;" onsubmit="submitComment(this)" method="post" name="commentForm" id="commentForm">
+       <table border="0" cellspacing="5" cellpadding="0">
+        <tr>
+          <td align="right">{$lang.username}：</td>
+          <td {if !$enabled_captcha}{/if}><!--{if $smarty.session.user_name}-->{$smarty.session.user_name}<!--{else}-->{$lang.anonymous}<!--{/if}--></td>
+        </tr>
+        <tr>
+          <td align="right">E-mail：</td>
+          <td>
+          <input type="text" name="email" id="email"  maxlength="100" value="{$smarty.session.email|escape}" class="InputBorder"/>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">{$lang.comment_rank}：</td>
+          <td id="star">      
+    <ul>
+        <li><a href="javascript:;">1</a></li>
+        <li><a href="javascript:;">2</a></li>
+        <li><a href="javascript:;">3</a></li>
+        <li><a href="javascript:;">4</a></li>
+        <li><a href="javascript:;">5</a></li>
+    </ul>
+    <span></span>
+    <p></p>
+          </td>
+        </tr>
+        <tr>
+          <td align="right" valign="top">{$lang.comment_content}：</td>
+          <td>
+          <textarea name="content" class="InputBorder" cols="75" rows="4"></textarea>
+          <input type="hidden" name="cmt_type" value="{$comment_type}" />
+          <input type="hidden" name="id" value="{$id}" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+          <!-- 判断是否启用验证码{if $enabled_captcha} -->
+          <div class="captcha fl">
+          {$lang.comment_captcha}：<input type="text" name="captcha" size="10"  class="InputBorder"/>
+          <img src="captcha.php?{$rand}" alt="captcha" onClick="this.src='captcha.php?'+Math.random()">
+          </div>
+          <!-- {/if} -->
+          <input name="" type="submit"  value="{$lang.submit_comment}" class="bnt_number4 fr">
+          </td>
+        </tr>
+      </table>
+      </form>
+</div>
+</div>
+<!--评论表单 end-->
+
+<script type="text/javascript">
+    var oStar = document.getElementById("star");
+    var aLi = oStar.getElementsByTagName("li");
+    var oUl = oStar.getElementsByTagName("ul")[0];
+    var oSpan = oStar.getElementsByTagName("span")[0];
+    var oP = oStar.getElementsByTagName("p")[0];
+    var i = iScore = iStar = 0;
+    var aMsg = [
+                "很不满意|商品一般般，没有想象中的好吃",
+                "不满意|部分有损坏，与商品描述的不符，不满意",
+                "一般|质量一般，没有商品描述中的那么好",
+                "满意|质量不错，与商品描述的基本一致，还是挺满意的",
+                "非常满意|质量非常好，与商品描述的完全一致，非常满意"
+                ]
+    
+    for (i = 1; i <= aLi.length; i++)
+    {
+        aLi[i - 1].index = i;
+        //鼠标移过显示分数
+        aLi[i - 1].onmouseover = function ()
+        {
+            fnPoint(this.index);
+            //浮动层显示
+            oP.style.display = "block";
+            //计算浮动层位置
+            oP.style.left = oUl.offsetLeft + this.index * this.offsetWidth - 104 + "px";
+            //匹配浮动层文字内容
+            oP.innerHTML = "<em><b>" + this.index + "</b> 分 " + aMsg[this.index - 1].match(/(.+)\|/)[1] + "</em>" + aMsg[this.index - 1].match(/\|(.+)/)[1]
+        };
+        //鼠标离开后恢复上次评分
+        aLi[i - 1].onmouseout = function ()
+        {
+            fnPoint();
+            //关闭浮动层
+            oP.style.display = "none"
+        };
+        //点击后进行评分处理
+        aLi[i - 1].onclick = function ()
+        {
+            iStar = this.index;
+            oP.style.display = "none";
+            oSpan.innerHTML = "<strong>" + (this.index) + " 分</strong> (" + aMsg[this.index - 1].match(/\|(.+)/)[1] + ")"
+        }
+    }
+    //评分处理
+    function fnPoint(iArg)
+    {
+        //分数赋值
+        iScore = iArg || iStar;
+        for (i = 0; i < aLi.length; i++) aLi[i].className = i < iScore ? "on" : "";	
+    }
+
+//<![CDATA[
+{foreach from=$lang.cmt_lang item=item key=key}
+var {$key} = "{$item}";
+{/foreach}
+{literal}
+/**
+ * 提交评论信息
+*/
+function submitComment(frm)
+{
+  var cmt = new Object;
+
+  //cmt.username        = frm.elements['username'].value;
+  cmt.email           = frm.elements['email'].value;
+  cmt.content         = frm.elements['content'].value;
+  cmt.type            = frm.elements['cmt_type'].value;
+  cmt.id              = frm.elements['id'].value;
+  cmt.enabled_captcha = frm.elements['enabled_captcha'] ? frm.elements['enabled_captcha'].value : '0';
+  cmt.captcha         = frm.elements['captcha'] ? frm.elements['captcha'].value : '';
+  cmt.rank            = iScore;
+
+//  if (cmt.username.length == 0)
+//  {
+//     alert(cmt_empty_username);
+//     return false;
+//  }
+
+  if (cmt.email.length > 0)
+  {
+     if (!(Utils.isEmail(cmt.email)))
+     {
+        alert(cmt_error_email);
+        return false;
+      }
+   }
+   else
+   {
+        alert(cmt_empty_email);
+        return false;
+   }
+
+   if (cmt.content.length == 0)
+   {
+      alert(cmt_empty_content);
+      return false;
+   }
+
+   if (cmt.enabled_captcha > 0 && cmt.captcha.length == 0 )
+   {
+      alert(captcha_not_null);
+      return false;
+   }
+	$.ajax({
+		url:'comment.php',
+		data:{cmt:JSON.stringify(cmt)},
+		success:commentResponse,
+		type:'POST',
+		dataType:'json'
+	});
+   return false;
+}
+
+/**
+ * 处理提交评论的反馈信息
+*/
+  function commentResponse(result)
+  {
+    if (result.message)
+    {
+      alert(result.message);
+    }
+
+    if (result.error == 0)
+    {
+      var layer = document.getElementById('ECS_COMMENT');
+
+      if (layer)
+      {
+        layer.innerHTML = result.content;
+      }
+    }
+  }
+{/literal}
+//]]>
+</script>

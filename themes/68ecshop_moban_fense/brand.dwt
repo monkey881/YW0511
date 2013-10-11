@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strice//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$page_title}</title>
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
+{* 包含脚本文件 *}
+{insert_scripts files='jquery-1.10.2.min.js,json2.js'}
+{insert_scripts files='common.js,compare.js'}
+<script type="text/javascript" src="js/action.js"></script>
+<style>
+            .content{ margin: auto; height: auto; width: 900px; text-align: center;
+            border: 1px solid #666; } a:link{ text-decoration: none; } .c1 span{ width:120px;
+            height:50px; font-size:22px; color: #FFF; text-decoration: none; font-weight:
+            bold; text-align: center; padding-top: 2px; padding-right: 8px; padding-bottom:
+            2px; padding-left: 8px; } .c1 span:hover{ color:#0F6; text-decoration:
+            none; } .gh1{ background-color: #376F02; } .gh2{ background-color: #F99;
+            } .gh3{ background-color: #996; } .gh4{ background-color: #F60; } .gh5{
+            background-color: #666; } .gh6{ background-color: #990; } .c1{ text-align:
+            left; color: #FFF; margin-left:20px; margin-top:20px; margin-bottom:3px;
+            text-decoration: none; } .c2{ color: #FFF; margin: auto; height: auto;
+            width: 760px; background-color: #376F02; } .c22{ color: #FFF; margin: auto;
+            height: auto; width: 860px; background-color:#F99 } .c222{ color: #FFF;
+            margin: auto; height: auto; width: 860px; background-color:#996 } .cf{
+            color: #FFF; margin: auto; height: auto; width: 860px; background-color:#F60
+            } .cf1{ color: #FFF; margin: auto; height: auto; width: 860px; background-color:#666
+            } .cg{ color: #FFF; margin: auto; height: auto; width: 860px; background-color:#990
+            } .p1{ font-family: "楷体"; font-size: 16px; padding: 0px; line-height: 30px;
+            margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 10px;
+            } .p2{ font-family: "华文行楷"; font-size: 24px; font-weight: normal; } .c3{
+            margin: auto; padding: bold; height: 300px; width: 750px; border: thick
+            solid #376F02; text-align: left; } .ccg3{ margin: auto; padding: bold;
+            height: 300px; width: 850px; border: thick solid #990; text-align: left;
+            } .ce3{ margin: auto; padding: bold; height: 300px; width: 850px; border:
+            thick solid #666; text-align: left; } .cbf3{ margin: auto; padding: bold;
+            height: 300px; width: 850px; border: thick solid #F60; text-align: left;
+            } .cjk3{ margin: auto; padding: bold; height: 300px; width: 850px; border:
+            thick solid #996; text-align: left; } .chjk3{ margin: auto; padding: bold;
+            height: 300px; width: 850px; border: thick solid #F99; text-align: left;
+            } .p3{ font-family: "楷体"; font-size: 18px; color: #376F00; font-weight:
+            bold; margin: 0px; letter-spacing: 2px; } .p4{ font-family: "楷体"; font-size:
+            16px; line-height: normal; color: #999; } .d1{ float: left; height: auto;
+            width: 300px; } .d2{ float: left; height: auto; width: 180px; text-align:
+            center; } hr#df{ border: 1px dashed #666; margin: 0px; }
+        </style>
+</head>
+<body>
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/ur_here.lbi" --><!-- #EndLibraryItem -->
+<!--主体内容 start-->
+<div class="block clearfix">
+    <div id="pageLeft" class="fl">
+    <!-- TemplateBeginEditable name="左边区域" -->
+      <!-- #BeginLibraryItem "/library/category_tree.lbi" --><!-- #EndLibraryItem -->
+        <!-- #BeginLibraryItem "/library/promotion_info.lbi" --><!-- #EndLibraryItem -->
+        <!-- #BeginLibraryItem "/library/top10.lbi" --><!-- #EndLibraryItem -->
+        <!-- #BeginLibraryItem "/library/history.lbi" --><!-- #EndLibraryItem -->
+    <!-- TemplateEndEditable -->
+    </div>
+    <div id="pageRight" class="fr">
+    
+    <div class="mod1 blank" id="brandInfo">
+    <span class="lt"></span><span class="lb"></span><span class="rt"></span><span class="rb"></span>
+    <h1 class="mod1tit">{$brand.brand_name}</h1>
+        <div class="mod1con clearfix" id="brandInfo1">
+         <div class="brand_content">
+            <div class="content1">
+                        <div class="c2">
+                            <p class="p1">
+                                {$brand.toptext}
+                            </p>
+                        </div>
+                        <div class="c3">
+                            <div class="d1">
+                                <img src="data/brandlogo/{$brand.brand_logo}" width="292" height="290" hspace="2" vspace="2"
+                                align="left" style="padding-top:5px; padding-left:3px;" />
+                            </div>
+                            <div class="d2">
+                                <img src="{$brand.image1}" width="171" height="138" vspace="5" align="middle" style="padding-top:6px"
+                                />
+                                <img src="{$brand.image2}" width="170" height="143" vspace="5" />
+                            </div>
+                            <p class="p1">
+                                {$brand.address}
+                                <span class="p2">
+                                    {$brand.brand_name}
+                                </span>
+                            </p>
+                            <p class="p1">
+                                <span style="background-color: #F60;">
+                                    农产品
+                                </span>
+                                ：{$brand.nongchanpin}
+                            </p>
+                            <hr id="df" />
+                            <p class="p3">
+                                <span class="p3">
+                                     {$brand.sologan}
+                                </span>
+                            </p>
+                            <hr id="df" />
+                            <p class="p4">
+                                {$brand.bottomtext}
+                            </p>
+                            
+                        </div>
+                    </div>
+            <div style="clear:both"></div>
+         </div>
+         <div class="fl brand_desc">
+          {$brand.brand_desc|nl2br}<br />
+            
+          </div> 
+      </div>
+        <script type="text/javascript">//divheight("brandInfo1");</script>
+    </div>	
+   <script type="text/javascript">//divheight("brandInfo");</script>
+        <!-- #BeginLibraryItem "/library/goods_list.lbi" --><!-- #EndLibraryItem -->
+    <!-- #BeginLibraryItem "/library/pages.lbi" --><!-- #EndLibraryItem -->
+    </div>
+
+    
+</div>
+<!--主体内容 end-->
+
+<!-- #BeginLibraryItem "/library/help.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>

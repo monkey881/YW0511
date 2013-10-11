@@ -1,0 +1,355 @@
+{if $full_page}
+<style type="text/css">
+.mydesket .title {
+	height: 30px;
+	position: relative;
+}
+.mydesket .title .weight {
+	position: absolute;
+	top: 0px;
+	left: 100px;
+	line-height: 35px;
+	color: #F00;
+	font-size: 14px;
+}
+.form-div .sx .brand li {
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+}
+.form-div .sx .brand {
+	margin: 0px;
+	padding: 0px;
+}
+.mydesket .title .address {
+	position: absolute;
+	left: 200px;
+	top: 0px;
+	line-height: 30px;
+}
+.mydesket  #psAddress {
+	height: 20px;
+}
+.form-div .sx {
+	clear: both;
+}
+#listdiv .goods_list_taocan {
+	margin: 0px;
+	padding: 0px;
+}
+.form-div .sx .brand li {
+	padding: 5px;
+	float: left;
+	width: 100px;
+}
+.sx .brand li span {
+	clear: both;
+	display: block;
+	line-height: 25px;
+}
+goods_list_taocan li a {
+	display: block;
+}
+.goods_list_taocan li .pic {
+	padding: 2px;
+	height: 122px;
+	width: 122px;
+	border: 1px solid #CCC;
+}
+.goods_list_taocan li .title {
+	color: #333;
+	text-decoration: none;
+	line-height: 25px;
+}
+.goods_list_taocan li .info .price {
+	color: #F00;
+	width: 50px;
+	display: block;
+	float: left;
+}
+.goods_list_taocan li .info .kc {
+	display: block;
+	color: #999;
+	float: right;
+	width: 60px;
+	text-align: right;
+}
+.goods_list_taocan li .info {
+	height: 20px;
+}
+.goods_list_taocan li {
+	display: block;
+	float: left;
+	height: 173px;
+	width: 125px;
+	padding: 5px;
+	overflow: hidden; 
+	position:relative;
+
+}
+#listdiv {
+	float: left;
+	width: 810px;
+	border: 1px solid #CCC;
+}
+
+#listdiv .select {
+	background: url("trans.gif") repeat scroll 0 0 transparent;
+	height: 180px;
+	left: 0;
+	padding: 180px 5px 5px;
+	position: absolute;
+	top: 0;
+	width: 132px;
+}
+#listdiv .select b {
+	background: none repeat scroll 0 0 #000000;
+	display: block;
+	height: 180px;
+	left: 5;
+	opacity: 0.4;
+	position: absolute;
+	top: 180px;
+	width: 132px;
+	z-index: 1;
+}
+#listdiv .select span {
+  position: relative;
+  z-index: 500;
+}
+.myclz ul li {
+  background-color: #CBF5D1;
+  display: block;
+  float: left;
+  height: 40px;
+  margin: 0 5px 5px;
+  padding: 5px;
+  position: relative;
+  width: 150px;
+}
+.myclz ul li span {
+	height: 20px;
+	
+}
+.myclz ul li .num {
+	color: #999;
+	font-size: 12px;
+	line-height: 20px;
+}
+.myclz ul li .del {
+	position: absolute;
+	right: 5px;
+	bottom: 5px;
+	height: 20px;
+	width: 20px;
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+	color: #F00;
+	cursor: pointer;
+}
+#listdiv  .select span dl dt {
+	background-color: #CCC;
+	height: 20px;
+	width: 50px;
+	float: left;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	text-align: center;
+}
+#listdiv  .select span dl .zdy {
+	width: 105px;
+}
+#listdiv  .select span dl  {
+	padding: 8px;	
+}
+#listdiv  .select span dl  a{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #F00;
+	text-decoration: none;	
+}
+.myclz ul li a {
+  display: block;
+  height: 20px;
+}#mycl {
+	padding: 5px;
+}
+</style>
+<style type="text/css">
+.ok {
+	height: 35px;
+	width: 90px;
+	top: 40px;
+	right: 30px;
+	position:absolute;
+	z-index:300;
+}
+
+.ok a {
+	display: block;
+	height: 35px;
+	width: 90px;
+	background-color: #F8B97F;
+	border: 1px solid #FFFFFF;
+	line-height: 35px;
+	color: #F00;
+	font-weight: bold;
+	text-decoration: none;
+	text-align: center;
+}
+</style>
+<link href="styles/general.css" rel="stylesheet" type="text/css" />
+<link href="styles/main.css" rel="stylesheet" type="text/css" />
+
+
+{insert_scripts files='../js/utils.js,../js/jquery.js,../js/jquery.json-1.3.js,../js/transport2.js,../js/taocan.js'}
+{* 包含脚本文件 *}
+
+<script type="text/javascript">
+<!--
+var process_request = "{$lang.process_request}";
+function getlist(key)
+{
+	listTable.query='gettaocan';
+	  listTable.filter['brand_id'] = key;
+	  listTable.filter['ps_id'] = "{$ps_id}";
+	  listTable.filter['tid'] = "{$tid}";
+	  listTable.loadList();
+
+}	
+function addshop(id,num)
+{
+	listTable.query='addshop';
+	  listTable.filter['goods_id'] = id;
+	  listTable.filter['num'] = num;
+	  listTable.filter['ps_id'] = "{$ps_id}";
+	  listTable.filter['tid'] = "{$tid}";
+	  listTable.addshop();
+	
+	}
+	function changeAddress(obj)
+{
+	var addressid=obj.value;
+	listTable.query='changeAddress';
+	listTable.filter['addres_id'] = addressid;
+	listTable.filter['ps_id'] = "{$ps_id}";
+	listTable.changeAddress();
+}
+$(document).ready(function(){
+$('#listdiv .select').mouseover(function(){
+$(this).stop().animate({"top":"-180px"}, 200);
+})
+$('#listdiv .select').mouseout(function(){
+$(this).stop().animate({"top":"0"}, 200);
+})
+})
+function checktaocan()
+{
+	if($('#psAddress').val()==-1){
+		alert('请选择配送地点');
+	}
+	else if(parseInt($('#ps_weight').text())>parseInt($('#z_weight').text())){
+		alert('你挑选的菜不足最小配送');
+	}
+	else{
+		window.location.href='user_taocan.php?act=rili&tid={$tid}';
+	}
+	
+	}
+	-->
+</script>
+<!-- 订单搜索 -->
+<div class="form-div">
+  
+<div class="blank"></div>
+    <div class="ok"><a href="#" onclick="checktaocan()">确定配送</a></div>
+<div class="address"><font style="color:#000; font-weight:bold;">最小配送重量：<span id="ps_weight">{$order_taocan.ps_weight}</span>斤 &nbsp;&nbsp;配送日期：{$psdate}</font> &nbsp;&nbsp;配送地点：
+  <select name="psAddress" id="psAddress" onchange="changeAddress(this)"  >
+      <option value="-1">选择配送地点</option>
+      {foreach from=$shipping_area item=area}
+      <option value="{$area.shipping_area_id}" {if $area.shipping_area_id==$selectAddress}selected="selected"{/if}>{$area.shipping_area_name}</option>
+      {/foreach}
+    </select>
+  </div>
+<div id="mycl">
+  {/if}
+  <!-- {if $action eq 'addshop' or $action eq 'delshop' || $action eq 'default'} -->
+    <h1><span>我的套餐</span></h1><div class="weight">这次配送已经选择了：<span id="z_weight">{$z_weight}</span>斤</div> 
+    <div class="clear"></div>
+   <div class="myclz" > 
+    <ul>
+     {foreach from=$basket_list item=item}
+    <li style="background-color:{$bgcolor}"><a class="title">{$item.goods_name}</a><span  onclick="listTable.edit(this, 'edit_mygood_num', {$item.basket_id})"  title="点击修改内容" >{$item.weigth}</span>斤
+    <span class="del"  onclick="listTable.delshop({$item.basket_id})">×</span>
+    </li>
+    {foreachelse}
+       你的菜篮里还没有菜，快去挑选吧
+     {/foreach}
+     <div class="clear"></div>
+    </ul>
+    <!--{/if}-->
+    {if $full_page}
+   </div>
+ </div>
+
+    
+   <div class="form-div">
+    <h1><span>可选商品</span></h1>
+   <div class="sx">
+    <ul class="brand">
+    <li onclick="getlist(0);" style="height:25px">全部农民</li>
+    {foreach from=$brands item=item}
+    <li><img src="/data/brandlogo/{$item.brand_logo}" width="100" height="100"  onclick="getlist({$item.brand_id});"/><span>{$item.brand_name}</span></li>
+     {/foreach}
+     <div class="clear"></div>
+    </ul>
+    </div>
+   
+     <div class="goods_list" id="listdiv">
+    {/if}
+    
+     
+      <!-- {if $action eq 'gettaocan' || $action eq 'default' or $action eq 'addshop' or $action eq 'delshop'} -->
+      <ul class="goods_list_taocan" >
+        {foreach from=$goods_taocan_list item=goods}
+        <li>
+          <a class="pic" href="#"><img width="120" height="120" alt="" src="/{$goods.goods_thumb}" /></a>
+          <a class="title" href="">{$goods.goods_name|escape:html}</a>
+          <div class="info"><span class="kc">{$goods.shop_price}</span><span class="price">{$goods.weigth }斤</span></div>
+          <div class="select">
+		
+		<span>
+	<dl>
+        <dt onclick="addshop({$goods.goods_id},1);"><a href="#" >{$goods.goods_weight1}斤</a></dt>
+        <dt><a href="#" onclick="addshop({$goods.goods_id},2);">{$goods.goods_weight2}斤</a></dt>
+        <dt><a href="#" onclick="addshop({$goods.goods_id},3);">{$goods.goods_weight3}斤</a></dt>
+        <dt><a href="#" onclick="addshop({$goods.goods_id},4);">{$goods.goods_weight4}斤</a></dt>
+        <dt><a href="#" onclick="addshop({$goods.goods_id},5);">{$goods.goods_weight5}斤</a></dt>
+        <dt><a href="#" onclick="addshop({$goods.goods_id},6);">{$goods.goods_weight6}斤</a></dt>
+        <dt><a href="#" onclick="addshop({$goods.goods_id},8);">{$goods.goods_weight8}斤</a></dt>
+        <dt><a href="#" onclick="addshop({$goods.goods_id},10);">{$goods.goods_weight10}斤</a></dt>
+        
+        </dl>
+		</span>
+	</div>
+        </li>
+        {foreachelse}
+        {$lang.no_records}
+        {/foreach}
+        <div class="clear"></div>
+      </ul>
+   
+<!-- 分页 -->
+
+       
+ <!--{/if}-->
+ 
+
+{if $full_page}
+<div class="clear"></div>
+ </div>
+ <div class="clear"></div>
+ </div>
+{include file="pagefooter.htm"}
+{/if}
