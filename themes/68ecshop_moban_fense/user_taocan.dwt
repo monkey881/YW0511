@@ -292,7 +292,7 @@ function getTaoCan(date)
      <!-- 配送日历结束-->
     <!--{/if}-->
     
-      <!--#订单列表界面 start-->
+      <!--#套餐卡界面 start-->
        <!-- {if $action eq 'ka'} -->
 		<div class="mx-bar hasb"><span>套餐卡</span></div>
 		<div class="blank"></div>
@@ -320,7 +320,7 @@ function getTaoCan(date)
         <div class="blank5"></div>
      
        <!--{/if}-->
-      <!--#订单列表界面 end-->
+      <!--#套餐卡界面 end-->
     
     
       </div>
