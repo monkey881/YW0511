@@ -3168,16 +3168,273 @@ elseif ($action == 'ka')
 }
 elseif ($action == 'kasave')
 {
+	require(ROOT_PATH . 'includes/lib_order.php');
+	
     $kahao=$_POST['kahao'];
 	$password=$_POST['password'];
-    $sql = "SELECT * FROM " . $ecs->table('taocan_ka')  . " WHERE user_id='$user_id' and kahao=$kahao and password=$password";
+    $sql = "SELECT * FROM " . $ecs->table('taocan_ka')  . " WHERE  kahao=$kahao and password=$password";
     $row = $db->getRow($sql);
-   
+	
+	
    if($row['status']==0){
 	   
 	   //生成套餐订单
+	   addto_cart($row['goods_id'], '1');
 	   
-	   show_message('套餐购买成功', '管理套餐', 'user.php?act=taocan');
+		
+		 include_once('includes/lib_clips.php');
+    include_once('includes/lib_payment.php');
+
+    /* 取得购物类型 */
+    $flow_type = isset($_SESSION['flow_type']) ? intval($_SESSION['flow_type']) : CART_GENERAL_GOODS;
+
+    /* 检查购物车中是否有商品 */
+    $sql = "SELECT COUNT(*) FROM " . $ecs->table('cart') .
+        " WHERE session_id = '" . SESS_ID . "' " .
+        "AND parent_id = 0 AND is_gift = 0 AND rec_type = '$flow_type'";
+    if ($db->getOne($sql) == 0)
+    {
+        show_message($_LANG['no_goods_in_cart'], '', '', 'warning');
+    }
+
+    
+    /*
+     * 检查用户是否已经登录
+     * 如果用户已经登录了则检查是否有默认的收货地址
+     * 如果没有登录则跳转到登录和注册页面
+     */
+    if (empty($_SESSION['direct_shopping']) && $_SESSION['user_id'] == 0)
+    {
+        /* 用户没有登录且没有选定匿名购物，转向到登录页面 */
+        ecs_header("Location: flow.php?step=login\n");
+        exit;
+    }
+
+    $consignee = get_consignee($_SESSION['user_id']);
+
+   
+   
+
+    $order = array(
+        'shipping_id'     => 5,
+        'pay_id'          => 10,
+        
+        'card_id'         => $row['id'],
+        'card_message'    => '',
+        
+        'user_id'         => $_SESSION['user_id'],
+        'add_time'        => gmtime(),
+        'order_status'    => OS_UNCONFIRMED,
+        'shipping_status' => SS_UNSHIPPED,
+        'pay_status'      => PS_PAYED
+       
+        );
+
+    /* 扩展信息 */
+    if (isset($_SESSION['flow_type']) && intval($_SESSION['flow_type']) != CART_GENERAL_GOODS)
+    {
+        $order['extension_code'] = $_SESSION['extension_code'];
+        $order['extension_id'] = $_SESSION['extension_id'];
+    }
+    else
+    {
+        $order['extension_code'] = '';
+        $order['extension_id'] = 0;
+    }
+
+    /* 检查积分余额是否合法 */
+    $user_id = $_SESSION['user_id'];
+    
+    
+
+    /* 订单中的商品 */
+    $cart_goods = cart_goods($flow_type);
+
+    if (empty($cart_goods))
+    {
+        show_message($_LANG['no_goods_in_cart'], $_LANG['back_home'], './', 'warning');
+    }
+
+    
+
+    /* 收货人信息 */
+    foreach ($consignee as $key => $value)
+    {
+        $order[$key] = addslashes($value);
+    }
+
+   /* 判断是不是实体商品 */
+    foreach ($cart_goods AS $val)
+    {
+        /* 统计实体商品的个数 */
+        if ($val['is_real'])
+        {
+            $is_real_good=1;
+        }
+    }
+    if(isset($is_real_good))
+    {
+        $sql="SELECT shipping_id FROM " . $ecs->table('shipping') . " WHERE shipping_id=".$order['shipping_id'] ." AND enabled =1"; 
+        if(!$db->getOne($sql))
+        {
+           show_message($_LANG['flow_no_shipping']);
+        }
+    }
+    /* 订单中的总额 */
+    $total = order_fee($order, $cart_goods, $consignee);
+    $order['bonus']        = $total['bonus'];
+    $order['goods_amount'] = $total['goods_price'];
+    $order['discount']     = $total['discount'];
+    $order['surplus']      = $total['surplus'];
+    $order['tax']          = $total['tax'];
+
+    // 购物车中的商品能享受红包支付的总额
+    $discount_amout = compute_discount_amount();
+    // 红包和积分最多能支付的金额为商品总额
+    $temp_amout = $order['goods_amount'] - $discount_amout;
+    if ($temp_amout <= 0)
+    {
+        $order['bonus_id'] = 0;
+    }
+
+    /* 配送方式 */
+    if ($order['shipping_id'] > 0)
+    {
+        $shipping = shipping_info($order['shipping_id']);
+        $order['shipping_name'] = addslashes($shipping['shipping_name']);
+    }
+    $order['shipping_fee'] = $total['shipping_fee'];
+    $order['insure_fee']   = $total['shipping_insure'];
+
+    /* 支付方式 */
+    if ($order['pay_id'] > 0)
+    {
+        $payment = payment_info($order['pay_id']);
+        $order['pay_name'] = addslashes($payment['pay_name']);
+    }
+    $order['pay_fee'] = $total['pay_fee'];
+    $order['cod_fee'] = $total['cod_fee'];
+
+   
+    $order['card_fee']      = $total['card_fee'];
+
+    $order['order_amount']  = number_format($total['amount'], 2, '.', '');
+
+   
+     $order['order_amount'] = 0;
+     
+
+    /* 如果订单金额为0（使用余额或积分或红包支付），修改订单状态为已确认、已付款 */
+    if ($order['order_amount'] <= 0)
+    {
+        $order['order_status'] = OS_CONFIRMED;
+        $order['confirm_time'] = gmtime();
+        $order['pay_status']   = PS_PAYED;
+        $order['pay_time']     = gmtime();
+        $order['order_amount'] = 0;
+    }
+
+    $order['integral_money']   = $total['integral_money'];
+    $order['integral']         = $total['integral'];
+
+    if ($order['extension_code'] == 'exchange_goods')
+    {
+        $order['integral_money']   = 0;
+        $order['integral']         = $total['exchange_integral'];
+    }
+
+    $order['from_ad']          = !empty($_SESSION['from_ad']) ? $_SESSION['from_ad'] : '0';
+    $order['referer']          = !empty($_SESSION['referer']) ? addslashes($_SESSION['referer']) : '';
+
+    /* 记录扩展信息 */
+    if ($flow_type != CART_GENERAL_GOODS)
+    {
+        $order['extension_code'] = $_SESSION['extension_code'];
+        $order['extension_id'] = $_SESSION['extension_id'];
+    }
+
+    $affiliate = unserialize($_CFG['affiliate']);
+   
+    $order['parent_id'] = $parent_id;
+
+    /* 插入订单表 */
+    $error_no = 0;
+    do
+    {
+        $order['order_sn'] = get_order_sn(); //获取新订单号
+        $GLOBALS['db']->autoExecute($GLOBALS['ecs']->table('order_info'), $order, 'INSERT');
+
+        $error_no = $GLOBALS['db']->errno();
+
+        if ($error_no > 0 && $error_no != 1062)
+        {
+            die($GLOBALS['db']->errorMsg());
+        }
+    }
+    while ($error_no == 1062); //如果是订单号重复则重新提交数据
+
+    $new_order_id = $db->insert_id();
+    $order['order_id'] = $new_order_id;
+
+    /* 插入订单商品 */
+    $sql = "INSERT INTO " . $ecs->table('order_goods') . "( " .
+                "order_id, goods_id, goods_name, goods_sn, product_id, goods_number, market_price, ".
+                "goods_price, goods_attr, is_real, extension_code, parent_id, is_gift, goods_attr_id) ".
+            " SELECT '$new_order_id', goods_id, goods_name, goods_sn, product_id, goods_number, market_price, ".
+                "goods_price, goods_attr, is_real, extension_code, parent_id, is_gift, goods_attr_id".
+            " FROM " .$ecs->table('cart') .
+            " WHERE session_id = '".SESS_ID."' AND rec_type = '$flow_type'";
+    $db->query($sql);
+    /* 修改拍卖活动状态 */
+    if ($order['extension_code']=='auction')
+    {
+        $sql = "UPDATE ". $ecs->table('goods_activity') ." SET is_finished='2' WHERE act_id=".$order['extension_id'];
+        $db->query($sql);
+    }
+	/*如果是套餐，生成套餐*/
+	 foreach ($cart_goods AS $val)
+    {
+       
+		if($val['is_taocan'])
+		{
+			$account = array(
+            'goods_id'      => $val['goods_id'],
+            'user_id'       => $user_id,
+			'order_id'       => $new_order_id,
+            'add_time'     => gmtime(),
+            'taocan_name'    => $val['goods_name'],
+            'taocan_weight' => $val['goods_weight'],
+            'taocan_price'   => $val['goods_price'],
+			'ps_weight'   => $val['ps_weight'] ,
+			'peisong_address_id'   => $consignee['address_id']            
+        	);
+        	$GLOBALS['db']->autoExecute($GLOBALS['ecs']->table('order_taocan'), $account, 'INSERT');
+		}
+		
+    }
+   
+
+
+    /* 清空购物车 */
+    clear_cart($flow_type);
+    /* 清除缓存，否则买了商品，但是前台页面读取缓存，商品数量不减少 */
+    clear_all_files();
+
+    /* 插入支付日志 */
+    $order['log_id'] = insert_pay_log($new_order_id, $order['order_amount'], PAY_ORDER);
+
+     $sql = "UPDATE ". $ecs->table('taocan_ka') ." SET status='1' , user_id=$user_id,sytime=".time().",order_sn=$order_sn  WHERE id=".$row['id'];
+     $db->query($sql);
+
+   
+    unset($_SESSION['flow_consignee']); // 清除session中保存的收货人信息
+    unset($_SESSION['flow_order']);
+    unset($_SESSION['direct_shopping']);
+		
+		
+
+	   
+	   show_message('套餐购买成功', '管理套餐', 'user.php?act=order_list');
    }
    elseif($row['status']==1){
 	   show_message('此卡已使用，请更换其他卡再试', '重试', 'user.php?act=ka');
