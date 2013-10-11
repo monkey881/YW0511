@@ -42,7 +42,7 @@ $modules['taocan_manger']['taocan_list']          = 'goods.php?act=list&is_taoca
 $modules['taocan_manger']['taocan_order']          = 'taocan_order.php?act=list';
 $modules['taocan_manger']['taocan_peisong']          = 'peisong.php';
 
-
+$modules['03_promotion']['taocanka']          = 'taocanka.php?act=list';
 $modules['03_promotion']['02_snatch_list']          = 'snatch.php?act=list';
 $modules['03_promotion']['04_bonustype_list']       = 'bonus.php?act=list';
 $modules['03_promotion']['06_pack_list']            = 'pack.php?act=list';
